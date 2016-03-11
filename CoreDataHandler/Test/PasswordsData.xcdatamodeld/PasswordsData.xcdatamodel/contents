@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
+    <entity name="PWDDetailEntity" representedClassName="PWDDetailEntity" syncable="YES">
+        <attribute name="p_account" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="p_cellphone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="p_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="p_pwd" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="p_synced" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="p_visiable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="p_visiable_count" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="p_website" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="extra_ship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PWDExtraInfoEntity" inverseName="password_ship" inverseEntity="PWDExtraInfoEntity" syncable="YES"/>
+        <relationship name="group_ship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PWDGroupEntity" inverseName="passwords_ship" inverseEntity="PWDGroupEntity" syncable="YES"/>
+        <relationship name="history_ship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PWDHistoryEntity" inverseName="password_ship" inverseEntity="PWDHistoryEntity" syncable="YES"/>
+        <relationship name="manager_ship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PWDManagerEntity" inverseName="password_ship" inverseEntity="PWDManagerEntity" syncable="YES"/>
+    </entity>
+    <entity name="PWDExtraInfoEntity" representedClassName="PWDExtraInfoEntity" syncable="YES">
+        <attribute name="e_attrname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="e_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="e_synced" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="e_type" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="e_value" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="password_ship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PWDDetailEntity" inverseName="extra_ship" inverseEntity="PWDDetailEntity" syncable="YES"/>
+    </entity>
+    <entity name="PWDGroupEntity" representedClassName="PWDGroupEntity" syncable="YES">
+        <attribute name="g_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="g_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="g_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="g_synced" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="passwords_ship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PWDDetailEntity" inverseName="group_ship" inverseEntity="PWDDetailEntity" syncable="YES"/>
+    </entity>
+    <entity name="PWDHistoryEntity" representedClassName="PWDHistoryEntity" syncable="YES">
+        <attribute name="h_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="h_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="h_pwd" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="h_synced" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="password_ship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PWDDetailEntity" inverseName="history_ship" inverseEntity="PWDDetailEntity" syncable="YES"/>
+    </entity>
+    <entity name="PWDManagerEntity" representedClassName="PWDManagerEntity" syncable="YES">
+        <attribute name="m_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="m_synced" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="m_uploaded" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="m_visiable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="password_ship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PWDDetailEntity" inverseName="manager_ship" inverseEntity="PWDDetailEntity" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="PWDDetailEntity" positionX="-486" positionY="-288" width="128" height="223"/>
+        <element name="PWDExtraInfoEntity" positionX="-504" positionY="-69" width="128" height="133"/>
+        <element name="PWDGroupEntity" positionX="-171" positionY="-351" width="128" height="118"/>
+        <element name="PWDHistoryEntity" positionX="-18" positionY="72" width="128" height="118"/>
+        <element name="PWDManagerEntity" positionX="-207" positionY="-27" width="128" height="118"/>
+    </elements>
+</model>
