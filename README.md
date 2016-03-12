@@ -49,6 +49,58 @@
 - 添加一个`AUUBaseRecordsCenter`的`category`来作为`CoreData`的数据管理中心，所有的操作都放到这里来统一管理。
 - 需要在自己的所有`model`中添加自己转换成`Entity`的方法。
 	
-	
-	
+##使用方法说明
+
+按照`CoreData`的原生的操作方法，见`AppDelegate.m`中得一堆示例代码。
+
+### `insert`
+
+* 封装好的操作方法
+
+```Objective-C
+- (void)insertGroup:(AUUPWDGroupModel *)groupModel
+{
+    AUUInsertOrUpdateOperation *operation = [[AUUInsertOrUpdateOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator model:groupModel completion:^(BOOL successed) {
+        
+    }];
+    [operation insertOrUpdateWithEntityClass:[PWDGroupEntity class] sortedKey:@"g_id" modelConvertBlock:^(id oriModel, id object, NSManagedObjectContext *managedObjectContext) {
+        [oriModel assignToEntity:object withManagedObjectContext:managedObjectContext];
+    }];
+    operation.needCompletionNotification = YES;
+    operation.primeKey = @"g_id";
+    operation.primeValueGenerateBlock = ^(id primeKey){
+        return [NSString stringWithFormat:@"%@ %zd", primeKey, arc4random_uniform(10000000)];
+    };
+    [self enQueueRecordOperation:operation];
+}
+```
+
+###`Search`
+
+* 封装好的操作方法
+
+```Objective-C
+- (void)fetchAllGroup
+{
+    AUUFetchAllOperation *operation = [[AUUFetchAllOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
+    [operation fetchAllWithEnityClass:[PWDGroupEntity class] sortedKey:@"g_id" entitiesConvert:^(NSArray *entities) {
+        NSMutableArray *modelsArray = [entities convertEntitiesToModels];
+    }];
+    [self enQueueRecordOperation:operation];
+}
+```
+
+###`Clean up`
+
+* 封装好的操作方法
+
+```Objective-C
+- (void)cleanupGroup
+{
+    AUUCleanUpOperation *operation = [[AUUCleanUpOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
+    [operation cleanupWithEnityClass:[PWDGroupEntity class] sortedKey:@"g_id" completion:^{ }];
+    [self enQueueRecordOperation:operation];
+}
+```
+
 ##继续优化中。。。
