@@ -65,6 +65,15 @@
     [self enQueueRecordOperation:operation];
 }
 
+- (void)cleanupDetails
+{
+    AUUCleanUpOperation *operation = [[AUUCleanUpOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
+    [operation cleanupWithEnityClass:[PWDDetailEntity class] sortedKey:@"p_id" completion:^{
+        
+    }];
+    [self enQueueRecordOperation:operation];
+}
+
 - (void)fetchAllDetails
 {
     AUUFetchAllOperation *operation = [[AUUFetchAllOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
@@ -145,7 +154,7 @@
     
     AUUPWDGroupModel *groupModel = [groupEntity assignToModel];
     
-    
+    AUUDebugLog(@"%@", groupModel);
 }
 
 @end

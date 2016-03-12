@@ -71,7 +71,7 @@
      
      */
     
-    NSArray *coredataOriginalAttribtues = @[@"NSNumber", @"NSDecimalNumber", @"NSString", @"NSDate", @"NSData"];
+    NSArray *coredataOriginalAttribtues = @[@"NSNumber", @"NSDecimalNumber", @"NSString", @"NSDate", @"NSData", @"NSSet"];
     
     NSString *propertyName = [self propertyAttributeTypeName];
     

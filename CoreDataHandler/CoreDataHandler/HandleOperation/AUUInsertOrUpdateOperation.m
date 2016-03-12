@@ -102,6 +102,8 @@
             oriObj = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(self.entityClass)
                                                    inManagedObjectContext:self.managedObjectContext];
             
+            AUUDebugLog(@"新建一个存储的数据对象成功，%@", oriObj);
+            
             /**
              *  @author JyHu, 16-03-11 17:03:44
              *
@@ -153,9 +155,13 @@
         
         if ([oriPrimeKeyValue isEqual:value])
         {
+            AUUDebugLog(@"在本地数据库中找到相应的实体对象，%@", obj);
+            
             return obj;
         }
     }
+    
+    AUUDebugLog(@"在本地数据库中没有找到相对应的实体对象，primeKey=%@, value=%@", self.primeKey, value);
     
     return nil;
 }
@@ -166,7 +172,7 @@
     NSAssert(self.sortedKey, @"用来排序的key没有设置");
     NSAssert(self.modelConvertBlock, @"用来进行model和object转换的Block没有设置");
     
-    AUUDebugLog(@"插入或更新实体类%@数据的线程开始", self.entityClass);
+    AUUDebugBeginWithInfo(@"插入或更新实体类%@数据的线程开始", self.entityClass);
     
     if (self.recordsToUpdate && self.recordsToUpdate.count > 0)
     {
@@ -177,11 +183,11 @@
             [self insertOrUpdateRecords];
         }
         
-        AUUDebugLog(@"插入或更新实体类%@数据的线程成功结束", self.entityClass);
+        AUUDebugFinishWithInfo(@"插入或更新实体类%@数据的线程成功结束", self.entityClass);
     }
     else
     {
-        AUUDebugLog(@"插入或更新实体类%@数据的线程结束，因为没有数据", self.entityClass);
+        AUUDebugFinishWithInfo(@"插入或更新实体类%@数据的线程结束，因为没有数据", self.entityClass);
     }
 }
 

@@ -8,7 +8,7 @@
 
 #import "AUUBaseHandleOperation.h"
 #import "AUUBaseRecordsCenter.h"
-#import "AUUBaseManagedObject.h"
+#import "NSManagedObject+AUUHelper.h"
 
 
 @interface AUUBaseHandleOperation() <NSFetchedResultsControllerDelegate>
@@ -37,9 +37,9 @@
 
 - (BOOL)initVariableWithEntityClass:(Class)cls sortedKey:(NSString *)key
 {
-    if (![cls isSubclassOfClass:[AUUBaseManagedObject class]])
+    if (![cls isSubclassOfClass:[NSManagedObject class]])
     {
-        AUUDebugLog(@"要查询的实体类%@不是AUUBaseManagedObject的子类",cls);
+        AUUDebugLog(@"要查询的实体类%@不是NSManagedObject的子类",NSStringFromClass(cls));
         
         return NO;
     }
@@ -119,11 +119,13 @@
         
         if (![self.managedObjectContext save:&error])
         {
+            AUUDebugLog(@"%@ 保存数据变动失败", NSStringFromClass([self class]));
+            
             [[AUUBaseRecordsCenter shareCenter] rollbackFlagQueue];
         }
         else
         {
-            AUUDebugLog(@"数据保存成功，影响UI的状态是：%zd", @(flag));
+            AUUDebugLog(@"%@ 数据保存成功，影响UI的状态是：%zd", NSStringFromClass([self class]), @(flag));
         }
     }
 }

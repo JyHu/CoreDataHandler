@@ -82,6 +82,19 @@
  */
 - (void)enQueueRecordOperation:(AUUBaseHandleOperation *)operation;
 
+/**
+ *  @author JyHu, 16-03-12 12:03:44
+ *
+ *  生成一个32位随机的字符串
+ *
+ *      eg : 965DD1C9-7C75-466F-9D3B-681F96440A57
+ *
+ *  @return NSString
+ *
+ *  @since v1.0
+ */
++ (NSString *)generateUniqueIdentifier;
+
 @end
 
 /**

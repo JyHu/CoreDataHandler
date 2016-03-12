@@ -167,6 +167,8 @@ typedef deque<BOOL> FlagQueue;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:AUURecordDidChangedNotification
                                                             object:nil];
+        
+        AUUDebugLog(@"已在主线程中发送数据变动的通知");
     }
     
     self.mFlagQueue -> pop_front();
@@ -218,6 +220,14 @@ typedef deque<BOOL> FlagQueue;
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
                                                    inDomains:NSUserDomainMask] lastObject];
+}
+
++ (NSString *)generateUniqueIdentifier
+{
+    CFUUIDRef uniqueIdentifier = CFUUIDCreate(NULL);
+    CFStringRef uniqueIdentifierString = CFUUIDCreateString(NULL, uniqueIdentifier);
+    CFRelease(uniqueIdentifier);
+    return CFBridgingRelease(uniqueIdentifierString);
 }
 
 @end

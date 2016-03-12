@@ -30,7 +30,7 @@
 
 - (void)main
 {
-    AUUDebugLog(@"查询实体类%@所有数据的线程开始", self.entityClass);
+    AUUDebugBeginWithInfo(@"查询实体类%@所有数据的线程开始",NSStringFromClass(self.entityClass));
     
     if ([self initVariableWithEntityClass:self.entityClass sortedKey:self.sortedKey])
     {
@@ -39,7 +39,7 @@
         self.convert([[self fetchedResultsController] fetchedObjects]);
     }
     
-    AUUDebugLog(@"查询实体类%@所有数据的线程结束", self.entityClass);
+    AUUDebugFinishWithInfo(@"查询实体类%@所有数据的线程结束", NSStringFromClass(self.entityClass));
 }
 
 @end

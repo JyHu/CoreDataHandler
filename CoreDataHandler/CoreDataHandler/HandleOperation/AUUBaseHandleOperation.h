@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-
-#define AUUDebugLog(...) do { NSLog(__VA_ARGS__); }while(0)
+#import "AUUMacros.h"
 
 /**
  *  @author JyHu, 16-03-10 23:03:27

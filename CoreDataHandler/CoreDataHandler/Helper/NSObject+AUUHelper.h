@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "NSString+AUUHelper.h"
+#import "AUUMacros.h"
 
 typedef NS_ENUM(NSUInteger, AUUFindoutType) {
     AUUFindoutTypeSet,

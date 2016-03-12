@@ -23,7 +23,7 @@
 {
     AUUPWDExtraInfoModel *model = [[AUUPWDExtraInfoModel alloc] init];
     
-    model.e_id = [AUUUtil generateUniqueIdentifier];
+    model.e_id = [AUUBaseRecordsCenter generateUniqueIdentifier];
     model.e_type = arc4random_uniform(10);
     model.e_value = [NSString stringWithFormat:@"generate value %zd", arc4random_uniform(100000)];
     model.e_synced = arc4random_uniform(2);

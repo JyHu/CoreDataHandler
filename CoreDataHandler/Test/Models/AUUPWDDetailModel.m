@@ -12,6 +12,7 @@
 #import "AUUPWDHistoryModel.h"
 #import "AUUPWDExtraInfoModel.h"
 #import "PWDExtraInfoEntity.h"
+#import "AUUBaseRecordsCenter.h"
 
 @implementation AUUPWDDetailModel
 
@@ -53,10 +54,10 @@
 + (id)generate
 {
     AUUPWDDetailModel *model = [[self alloc] init];
-    model.p_id = [AUUUtil generateUniqueIdentifier];
-    model.p_pwd = [AUUUtil generateUniqueIdentifier];
+    model.p_id = [AUUBaseRecordsCenter generateUniqueIdentifier];
+    model.p_pwd = [AUUBaseRecordsCenter generateUniqueIdentifier];
     model.p_synced = arc4random_uniform(2);
-    model.p_account = [AUUUtil generateUniqueIdentifier];
+    model.p_account = [AUUBaseRecordsCenter generateUniqueIdentifier];
     model.p_website = [NSString stringWithFormat:@"www.%zd.com", arc4random_uniform(10000000)];
     model.p_visiable = arc4random_uniform(2);
     model.p_cellphone = [NSString stringWithFormat:@"133%zd", arc4random_uniform(100000000)];

@@ -22,8 +22,8 @@
 {
     AUUPWDHistoryModel *model = [[AUUPWDHistoryModel alloc] init];
     
-    model.h_id = [AUUUtil generateUniqueIdentifier];
-    model.h_pwd = [AUUUtil generateUniqueIdentifier];
+    model.h_id = [AUUBaseRecordsCenter generateUniqueIdentifier];
+    model.h_pwd = [AUUBaseRecordsCenter generateUniqueIdentifier];
     model.h_date = [[NSDate date] dateByAddingTimeInterval:-1 * arc4random_uniform(1000000)];
     model.h_synced = arc4random_uniform(2);
     

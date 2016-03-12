@@ -1,15 +1,15 @@
 //
-//  AUUBaseManagedObject.h
+//  NSManagedObject+AUUHelper.h
 //  CoreDataHandler
 //
-//  Created by 胡金友 on 16/3/10.
+//  Created by 胡金友 on 16/3/11.
 //  Copyright © 2016年 胡金友. All rights reserved.
 //
 
 #import <CoreData/CoreData.h>
 #import "NSObject+AUUHelper.h"
 
-@interface AUUBaseManagedObject : NSManagedObject
+@interface NSManagedObject (AUUHelper)
 
 /**
  *  @author JyHu, 16-03-11 13:03:28
@@ -20,7 +20,8 @@
  *
  *  @since v1.0
  */
-- (void)cleanupWithManagedObjectContext:(NSManagedObjectContext *)managedObjectedContext;
+- (void)cleanupWithManagedObjectContext:(NSManagedObjectContext *)managedObjectedContext
+                ignoreAttributeTypeName:(NSString *)attributeTypeName;
 
 /**
  *  @author JyHu, 16-03-11 13:03:04
@@ -50,6 +51,3 @@
 - (id)assignToModelWithClass:(Class)cls;
 
 @end
-
-
-

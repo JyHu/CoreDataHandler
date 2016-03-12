@@ -7,7 +7,7 @@
 //
 
 #import "AUUCleanUpOperation.h"
-#import "AUUBaseManagedObject.h"
+#import "NSManagedObject+AUUHelper.h"
 
 
 @interface AUUCleanUpOperation()
@@ -34,9 +34,10 @@
 {
     for (id obj in [[self fetchedResultsController] fetchedObjects])
     {
-        if ([obj isMemberOfClass:[AUUBaseManagedObject class]])
+        if ([obj isKindOfClass:[NSManagedObject class]])
         {
-            [(AUUBaseManagedObject *)obj cleanupWithManagedObjectContext:self.managedObjectContext];
+            [(NSManagedObject *)obj cleanupWithManagedObjectContext:self.managedObjectContext
+                                            ignoreAttributeTypeName:NSStringFromClass([obj class])];
         }
         
         [self.managedObjectContext deleteObject:obj];
@@ -47,7 +48,7 @@
 
 - (void)main
 {
-    AUUDebugLog(@"清空实体类%@数据的线程开始", self.entityClass);
+    AUUDebugBeginWithInfo(@"清空实体类%@数据的线程开始", self.entityClass);
     
     if ([self initVariableWithEntityClass:self.entityClass sortedKey:self.sortedKey])
     {
@@ -56,7 +57,7 @@
         [self cleanup];
     }
     
-    AUUDebugLog(@"清空实体类%@数据的线程结束", self.entityClass);
+    AUUDebugFinishWithInfo(@"清空实体类%@数据的线程结束", self.entityClass);
 }
 
 @end

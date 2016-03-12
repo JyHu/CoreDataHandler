@@ -26,7 +26,7 @@
 		1C5A9C141C92932400E4E843 /* AUUPWDHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A9C131C92932400E4E843 /* AUUPWDHistoryModel.m */; };
 		1C5A9C171C92933700E4E843 /* AUUPWDGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A9C161C92933700E4E843 /* AUUPWDGroupModel.m */; };
 		1C5A9C1A1C92934700E4E843 /* AUUPWDExtraInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A9C191C92934700E4E843 /* AUUPWDExtraInfoModel.m */; };
-		1CDB39901C92A4F000BA5619 /* AUUUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB398F1C92A4F000BA5619 /* AUUUtil.m */; };
+		1CDB399A1C92CDF000BA5619 /* NSManagedObject+AUUHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB39991C92CDF000BA5619 /* NSManagedObject+AUUHelper.m */; };
 		997E6E3D1C91AE33004BA20C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 997E6E3C1C91AE33004BA20C /* main.m */; };
 		997E6E401C91AE33004BA20C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 997E6E3F1C91AE33004BA20C /* AppDelegate.m */; };
 		997E6E431C91AE33004BA20C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 997E6E421C91AE33004BA20C /* ViewController.m */; };
@@ -39,7 +39,6 @@
 		997E6E611C91B183004BA20C /* AUUInsertOrUpdateOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 997E6E601C91B183004BA20C /* AUUInsertOrUpdateOperation.m */; };
 		997E6E641C91B19C004BA20C /* AUUCleanUpOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 997E6E631C91B19B004BA20C /* AUUCleanUpOperation.m */; };
 		997E6E661C91B1C1004BA20C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 997E6E651C91B1C1004BA20C /* CoreData.framework */; };
-		99C7601C1C91BD4200D3ADB5 /* AUUBaseManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 99C7601B1C91BD4200D3ADB5 /* AUUBaseManagedObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,9 +79,10 @@
 		1C5A9C161C92933700E4E843 /* AUUPWDGroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUUPWDGroupModel.m; sourceTree = "<group>"; };
 		1C5A9C181C92934700E4E843 /* AUUPWDExtraInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUUPWDExtraInfoModel.h; sourceTree = "<group>"; };
 		1C5A9C191C92934700E4E843 /* AUUPWDExtraInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUUPWDExtraInfoModel.m; sourceTree = "<group>"; };
-		1CDB398E1C92A4F000BA5619 /* AUUUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUUUtil.h; sourceTree = "<group>"; };
-		1CDB398F1C92A4F000BA5619 /* AUUUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUUUtil.m; sourceTree = "<group>"; };
 		1CDB39911C92A52900BA5619 /* CoreDataHandler.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataHandler.pch; sourceTree = "<group>"; };
+		1CDB39981C92CDF000BA5619 /* NSManagedObject+AUUHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+AUUHelper.h"; sourceTree = "<group>"; };
+		1CDB39991C92CDF000BA5619 /* NSManagedObject+AUUHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+AUUHelper.m"; sourceTree = "<group>"; };
+		1CDB399E1C93D4A000BA5619 /* AUUMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUUMacros.h; sourceTree = "<group>"; };
 		997E6E381C91AE33004BA20C /* CoreDataHandler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataHandler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		997E6E3C1C91AE33004BA20C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		997E6E3E1C91AE33004BA20C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -104,8 +104,6 @@
 		997E6E621C91B19B004BA20C /* AUUCleanUpOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUUCleanUpOperation.h; sourceTree = "<group>"; };
 		997E6E631C91B19B004BA20C /* AUUCleanUpOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUUCleanUpOperation.m; sourceTree = "<group>"; };
 		997E6E651C91B1C1004BA20C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		99C7601A1C91BD4200D3ADB5 /* AUUBaseManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUUBaseManagedObject.h; sourceTree = "<group>"; };
-		99C7601B1C91BD4200D3ADB5 /* AUUBaseManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUUBaseManagedObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,8 +127,6 @@
 				1C5A9BD21C9257A300E4E843 /* PasswordsData.xcdatamodeld */,
 				1C5A9C021C926D5700E4E843 /* AUUBaseRecordsCenter+Test.h */,
 				1C5A9C031C926D5700E4E843 /* AUUBaseRecordsCenter+Test.m */,
-				1CDB398E1C92A4F000BA5619 /* AUUUtil.h */,
-				1CDB398F1C92A4F000BA5619 /* AUUUtil.m */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -193,6 +189,8 @@
 				1C5A9C071C927A3B00E4E843 /* NSObject+AUUHelper.m */,
 				1C5A9C091C927AA800E4E843 /* NSString+AUUHelper.h */,
 				1C5A9C0A1C927AA800E4E843 /* NSString+AUUHelper.m */,
+				1CDB39981C92CDF000BA5619 /* NSManagedObject+AUUHelper.h */,
+				1CDB39991C92CDF000BA5619 /* NSManagedObject+AUUHelper.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -248,8 +246,7 @@
 				997E6E551C91AEF2004BA20C /* HandleOperation */,
 				997E6E561C91B0FB004BA20C /* AUUBaseRecordsCenter.h */,
 				997E6E571C91B0FB004BA20C /* AUUBaseRecordsCenter.mm */,
-				99C7601A1C91BD4200D3ADB5 /* AUUBaseManagedObject.h */,
-				99C7601B1C91BD4200D3ADB5 /* AUUBaseManagedObject.m */,
+				1CDB399E1C93D4A000BA5619 /* AUUMacros.h */,
 			);
 			path = CoreDataHandler;
 			sourceTree = "<group>";
@@ -339,9 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CDB39901C92A4F000BA5619 /* AUUUtil.m in Sources */,
 				1C5A9BEF1C925F2300E4E843 /* PWDGroupEntity+CoreDataProperties.m in Sources */,
-				99C7601C1C91BD4200D3ADB5 /* AUUBaseManagedObject.m in Sources */,
 				1C5A9BF11C925F2300E4E843 /* PWDExtraInfoEntity+CoreDataProperties.m in Sources */,
 				997E6E5B1C91B135004BA20C /* AUUBaseHandleOperation.m in Sources */,
 				1C5A9BD41C9257A300E4E843 /* PasswordsData.xcdatamodeld in Sources */,
@@ -365,6 +360,7 @@
 				1C5A9C171C92933700E4E843 /* AUUPWDGroupModel.m in Sources */,
 				1C5A9C0B1C927AA800E4E843 /* NSString+AUUHelper.m in Sources */,
 				1C5A9C1A1C92934700E4E843 /* AUUPWDExtraInfoModel.m in Sources */,
+				1CDB399A1C92CDF000BA5619 /* NSManagedObject+AUUHelper.m in Sources */,
 				1C5A9C111C92931400E4E843 /* AUUPWDManagerModel.m in Sources */,
 				997E6E5E1C91B167004BA20C /* AUUFetchAllOperation.m in Sources */,
 				997E6E3D1C91AE33004BA20C /* main.m in Sources */,

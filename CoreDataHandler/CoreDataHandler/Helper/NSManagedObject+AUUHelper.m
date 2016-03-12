@@ -1,19 +1,21 @@
 //
-//  AUUBaseManagedObject.m
+//  NSManagedObject+AUUHelper.m
 //  CoreDataHandler
 //
-//  Created by 胡金友 on 16/3/10.
+//  Created by 胡金友 on 16/3/11.
 //  Copyright © 2016年 胡金友. All rights reserved.
 //
 
-#import "AUUBaseManagedObject.h"
+#import "NSManagedObject+AUUHelper.h"
 #import <objc/runtime.h>
 
-
-@implementation AUUBaseManagedObject
+@implementation NSManagedObject (AUUHelper)
 
 - (void)cleanupWithManagedObjectContext:(NSManagedObjectContext *)managedObjectedContext
+                ignoreAttributeTypeName:(NSString *)attributeTypeName
 {
+    AUUDebugLog(@"正在清理实体类对象 %@", NSStringFromClass([self class]));
+    
     // 先找一下Entity中关联的有Entity但不是NSSet的属性
     NSString *entityProperty = [self findoutPropertyAttributeNameWithFindType:AUUFindoutTypeEntity];
     
@@ -21,23 +23,30 @@
     {
         id obj = [self valueForKey:entityProperty];
         
-        if ([obj isMemberOfClass:[AUUBaseManagedObject class]])
+        AUUDebugLog(@"在清理的对象%@中有是Entity(%@)的属性%@", NSStringFromClass([self class]), NSStringFromClass([obj class]), entityProperty);
+        
+        if (![obj isKindOfClass:NSClassFromString(attributeTypeName)])
         {
-            [obj cleanupWithManagedObjectContext:managedObjectedContext];
-            
-            [managedObjectedContext deleteObject:obj];
+            if ([obj isKindOfClass:[NSManagedObject class]])
+            {
+                [obj cleanupWithManagedObjectContext:managedObjectedContext
+                             ignoreAttributeTypeName:NSStringFromClass([self class])];
+                
+                [managedObjectedContext deleteObject:obj];
+            }
         }
     }
     
     // 然后再找出属性中一对多的属性，即属性类型名为NSSet
     NSString *setProperty = [self findoutPropertyAttributeNameWithFindType:AUUFindoutTypeSet];
-    
     if (setProperty)
     {
+        AUUDebugLog(@"在清理的实体类%@中存在一对多的属性，循环清理中", NSStringFromClass([self class]));
         // 如果存在的话，就说明当前的Entity存在一对多的关系，循环去删除
-        for (AUUBaseManagedObject *obj in [self valueForKey:setProperty])
+        for (NSManagedObject *obj in [self valueForKey:setProperty])
         {
-            [obj cleanupWithManagedObjectContext:managedObjectedContext];
+            [obj cleanupWithManagedObjectContext:managedObjectedContext
+                         ignoreAttributeTypeName:NSStringFromClass([self class])];
             
             [managedObjectedContext deleteObject:obj];
         }
@@ -57,7 +66,7 @@
  *  @since v1.0
  */
 - (id)assignToModelWithClass:(Class)cls
-{
+{    
     // 初始化一个目标model
     id destinationModel = [[cls alloc] init];
     
@@ -89,7 +98,7 @@
                 continue ;
             }
             
-            if ([NSClassFromString(propertyAttributeTypeName) isSubclassOfClass:[AUUBaseManagedObject class]])
+            if ([NSClassFromString(propertyAttributeTypeName) isSubclassOfClass:[NSManagedObject class]])
             {
                 // 判断一下是否是AUUBaseManagedObject的子类，如果是的话需要取出Entity然后再次转换并赋值
                 [destinationModel setValue:[[self valueForKey:propertyAttributeName] assignToModel] forKey:propertyAttributeName];
@@ -138,7 +147,7 @@
         else
         {
             // 取出数据类型失败
-            NSLog(@"取出数据类型失败");
+            AUUDebugLog(@"取出数据类型失败");
         }
     }
     
@@ -148,8 +157,3 @@
 - (id)assignToModel { return nil; }
 
 @end
-
-
-
-
-

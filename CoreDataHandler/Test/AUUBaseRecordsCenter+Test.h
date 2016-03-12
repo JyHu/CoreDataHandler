@@ -22,4 +22,6 @@
 
 - (void)fetchAllDetails;
 
+- (void)cleanupDetails;
+
 @end

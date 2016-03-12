@@ -34,7 +34,7 @@
 {
     AUUPWDGroupModel *model = [[AUUPWDGroupModel alloc] init];
     
-    model.g_id = [AUUUtil generateUniqueIdentifier];
+    model.g_id = [AUUBaseRecordsCenter generateUniqueIdentifier];
     model.g_name = [NSString stringWithFormat:@"group name %zd", arc4random_uniform(100000)];
     model.g_date = [[NSDate date] dateByAddingTimeInterval:-1 * arc4random_uniform(100000000)];
     model.g_synced = arc4random_uniform(2);

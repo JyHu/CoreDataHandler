@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AUUBaseManagedObject.h"
+#import "NSManagedObject+AUUHelper.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PWDManagerEntity : AUUBaseManagedObject
+@interface PWDManagerEntity : NSManagedObject
 
 // Insert code here to declare functionality of your managed object subclass
 

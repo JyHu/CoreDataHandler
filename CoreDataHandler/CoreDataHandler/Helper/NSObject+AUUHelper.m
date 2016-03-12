@@ -36,7 +36,7 @@
         
         NSString *attributesString = [NSString stringWithCString:attributes encoding:NSUTF8StringEncoding];
         
-        NSLog(@"%@\n%@", self, attributesString);
+//        NSLog(@"%@\n%@", self, attributesString);
         
         if (attributesString && attributesString.length > 0)
         {
@@ -57,7 +57,7 @@
             {
                 const char *name = property_getName(property_t);
                 
-                NSLog(@"set property name : %@", [NSString stringWithCString:name encoding:NSUTF8StringEncoding]);
+//                NSLog(@"set property name : %@", [NSString stringWithCString:name encoding:NSUTF8StringEncoding]);
                 
                 return [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
             }
@@ -113,7 +113,7 @@
  *  @since v1.0
  */
 + (BOOL)whetherContainsAttribute:(NSString *)attribtue
-{
+{    
     unsigned int propertiesCount = 0;
     
     objc_property_t *propertPtr = class_copyPropertyList([self class], &propertiesCount);

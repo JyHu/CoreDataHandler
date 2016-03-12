@@ -22,7 +22,7 @@
 {
     AUUPWDManagerModel *model = [[AUUPWDManagerModel alloc] init];
     
-    model.m_id = [AUUUtil generateUniqueIdentifier];
+    model.m_id = [AUUBaseRecordsCenter generateUniqueIdentifier];
     model.m_synced = arc4random_uniform(2);
     model.m_uploaded = arc4random_uniform(2);
     model.m_visiable = arc4random_uniform(2);
