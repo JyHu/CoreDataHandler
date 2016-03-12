@@ -86,7 +86,7 @@
         
         self.completion = completion;
         
-        self.needCompletionNotification = NO;
+        self.needCompletionNotification = YES;
     }
     
     return self;

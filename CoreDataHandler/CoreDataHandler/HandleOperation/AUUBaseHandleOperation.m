@@ -125,7 +125,7 @@
         }
         else
         {
-            AUUDebugLog(@"%@ 数据保存成功，影响UI的状态是：%zd", NSStringFromClass([self class]), @(flag));
+            AUUDebugLog(@"%@ 数据保存成功", NSStringFromClass([self class]));
         }
     }
 }

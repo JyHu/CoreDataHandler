@@ -50,7 +50,7 @@
         [self.managedObjectContext deleteObject:obj];
     }
     
-    [self saveChangesWithFlag:NO];
+    [self saveChangesWithFlag:YES];
 }
 
 - (void)main
