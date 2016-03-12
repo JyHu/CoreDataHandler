@@ -65,4 +65,13 @@ typedef NS_ENUM(NSUInteger, AUUFindoutType) {
  */
 + (BOOL)whetherContainsAttribute:(NSString *)attribtue;
 
+/**
+ *  @author JyHu, 16-03-12 18:03:32
+ *
+ *  调试输出所有属性
+ *
+ *  @since v1.0
+ */
++ (void)debugLogAttributes;
+
 @end

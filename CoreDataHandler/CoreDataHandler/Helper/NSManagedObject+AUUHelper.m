@@ -151,6 +151,8 @@
         }
     }
     
+    property_ptr = NULL;
+    
     return destinationModel;
 }
 

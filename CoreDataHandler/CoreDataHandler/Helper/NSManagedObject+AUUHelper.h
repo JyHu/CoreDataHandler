@@ -16,7 +16,7 @@
  *
  *  清空coredata中当前数据模型下的所有数据
  *
- *  @param managedObjectedContext <#managedObjectedContext description#>
+ *  @param managedObjectedContext 上下文
  *
  *  @since v1.0
  */
@@ -40,7 +40,7 @@
 /**
  *  @author JyHu, 16-03-11 13:03:32
  *
- *  相当于是半私有方法，在子类重写 assignToModel 方法的时候使用
+ *  相当于是半私有方法，在子类的.m文件中重写 assignToModel 方法的时候使用
  *
  *  @param cls 目标model的class类型
  *

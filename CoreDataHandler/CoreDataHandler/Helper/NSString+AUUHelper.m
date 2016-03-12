@@ -7,6 +7,7 @@
 //
 
 #import "NSString+AUUHelper.h"
+#import "AUUMacros.h"
 
 /*
  
@@ -29,15 +30,35 @@
  */
 - (NSString *)propertyAttributeTypeName
 {
-    NSRegularExpression *reqular = [[NSRegularExpression alloc] initWithPattern:@"(?<=T@\").*?(?=\\\",)" options:NSRegularExpressionCaseInsensitive error:nil];
-    NSTextCheckingResult *result = [reqular firstMatchInString:self options:NSMatchingWithTransparentBounds range:NSMakeRange(0, self.length)];
-    NSRange range = result.range;
-    if (range.location != NSNotFound)
-    {
-        return [self substringWithRange:range];
+    NSString *attribtueTypeName = nil;
+    
+    @try {
+        
+        // 截取第一部分
+        NSString *tstr = [self substringToIndex:[self rangeOfString:@","].location];
+        
+        if ([tstr rangeOfString:@"@"].location != NSNotFound)
+        {
+            // OC对象
+            attribtueTypeName = [[tstr substringToIndex:tstr.length - 1] substringFromIndex:3];
+        }
+        else
+        {
+            // 基本数据类型
+            attribtueTypeName = [tstr substringFromIndex:1];
+        }
+    }
+    @catch (NSException *exception) {
+        
+        AUUDebugLog(@"%@", exception);
+    }
+    @finally {
+        
     }
     
-    return nil;
+    AUUDebugLog(@"* * * * * * * * * * * * 截取到的数据类型名：%@",attribtueTypeName);
+    
+    return attribtueTypeName;
 }
 
 /**

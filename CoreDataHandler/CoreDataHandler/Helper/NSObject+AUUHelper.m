@@ -94,9 +94,15 @@
         {
             const char *attribtues = property_getAttributes(property_t);
             
-            return [[NSString stringWithCString:attribtues encoding:NSUTF8StringEncoding] propertyAttributeTypeName];
+            NSString *propertyAttributeString = [NSString stringWithCString:attribtues encoding:NSUTF8StringEncoding];
+            
+            property_ptr = NULL;
+            
+            return [propertyAttributeString propertyAttributeTypeName];
         }
     }
+    
+    property_ptr = NULL;
     
     return nil;
 }
@@ -126,11 +132,56 @@
         
         if ([[NSString stringWithCString:name encoding:NSUTF8StringEncoding] isEqualToString:attribtue])
         {
+            propertPtr = NULL;
+            
             return YES;
         }
     }
     
+    propertPtr = NULL;
+    
     return NO;
+}
+
++ (void)debugLogAttributes
+{
+    /*
+     
+     t_int          Ti,N,V_t_int
+     t_float        Tf,N,V_t_float
+     t_char         Tc,N,V_t_char
+     t_double       Td,N,V_t_double
+     t_unsigned_int TI,N,V_t_unsigned_int
+     t_integer      Tq,N,V_t_integer
+     t_cgfloat      Td,N,V_t_cgfloat
+     t_bool         TB,N,V_t_bool
+     
+     t_number       T@"NSNumber",&,N,V_t_number
+     t_string       T@"NSString",&,N,V_t_string
+     t_data         T@"NSData",&,N,V_t_data
+     t_date         T@"NSDate",&,N,V_t_date
+     t_array            T@"NSArray",&,N,V_t_array
+     t_mutableArray     T@"NSMutableArray",&,N,V_t_mutableArray
+     t_set              T@"NSSet",&,N,V_t_set
+     t_mutableSet       T@"NSMutableSet",&,N,V_t_mutableSet
+     
+     */
+    unsigned int properties_count = 0;
+    
+    objc_property_t *property_ptr = class_copyPropertyList([self class], &properties_count);
+    
+    for (unsigned int i = 0; i < properties_count; i ++)
+    {
+        objc_property_t property_t = property_ptr[i];
+        
+        const char *objc_name = property_getName(property_t);
+        
+        const char *objc_attributes = property_getAttributes(property_t);
+        
+        AUUDebugLog(@"%@ %@", [NSString stringWithCString:objc_name encoding:NSUTF8StringEncoding], [NSString stringWithCString:objc_attributes encoding:NSUTF8StringEncoding]);
+    }
+    
+    property_ptr = NULL;
 }
 
 @end

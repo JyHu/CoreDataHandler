@@ -65,9 +65,9 @@
 /**
  *  @author JyHu, 16-03-10 23:03:30
  *
- *  <#Description#>
+ *  数据持久化存储助理
  *
- *  @since <#1.0#>
+ *  @since 1.0
  */
 @property (strong, nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
