@@ -36,6 +36,13 @@
     {
         if ([obj isKindOfClass:[NSManagedObject class]])
         {
+            /**
+             *  @author JyHu, 16-03-12 22:03:38
+             *
+             *  循环去清空当前查询到的数据
+             *
+             *  @since v1.0
+             */
             [(NSManagedObject *)obj cleanupWithManagedObjectContext:self.managedObjectContext
                                             ignoreAttributeTypeName:NSStringFromClass([obj class])];
         }

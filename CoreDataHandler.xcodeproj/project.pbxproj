@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C2577341C943F77003E2BFD /* NSArray+AUUHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2577331C943F77003E2BFD /* NSArray+AUUHelper.m */; };
 		1C5A9BD41C9257A300E4E843 /* PasswordsData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A9BD21C9257A300E4E843 /* PasswordsData.xcdatamodeld */; };
 		1C5A9BE91C925F2300E4E843 /* PWDManagerEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A9BD61C925F2300E4E843 /* PWDManagerEntity+CoreDataProperties.m */; };
 		1C5A9BEA1C925F2300E4E843 /* PWDManagerEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A9BD81C925F2300E4E843 /* PWDManagerEntity.m */; };
@@ -42,6 +43,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C2577321C943F77003E2BFD /* NSArray+AUUHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+AUUHelper.h"; sourceTree = "<group>"; };
+		1C2577331C943F77003E2BFD /* NSArray+AUUHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AUUHelper.m"; sourceTree = "<group>"; };
 		1C5A9BD31C9257A300E4E843 /* PasswordsData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PasswordsData.xcdatamodel; sourceTree = "<group>"; };
 		1C5A9BD51C925F2300E4E843 /* PWDManagerEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PWDManagerEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
 		1C5A9BD61C925F2300E4E843 /* PWDManagerEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PWDManagerEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 				1C5A9C0A1C927AA800E4E843 /* NSString+AUUHelper.m */,
 				1CDB39981C92CDF000BA5619 /* NSManagedObject+AUUHelper.h */,
 				1CDB39991C92CDF000BA5619 /* NSManagedObject+AUUHelper.m */,
+				1C2577321C943F77003E2BFD /* NSArray+AUUHelper.h */,
+				1C2577331C943F77003E2BFD /* NSArray+AUUHelper.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -340,6 +345,7 @@
 				1C5A9BF11C925F2300E4E843 /* PWDExtraInfoEntity+CoreDataProperties.m in Sources */,
 				997E6E5B1C91B135004BA20C /* AUUBaseHandleOperation.m in Sources */,
 				1C5A9BD41C9257A300E4E843 /* PasswordsData.xcdatamodeld in Sources */,
+				1C2577341C943F77003E2BFD /* NSArray+AUUHelper.m in Sources */,
 				1C5A9C041C926D5700E4E843 /* AUUBaseRecordsCenter+Test.m in Sources */,
 				1C5A9C141C92932400E4E843 /* AUUPWDHistoryModel.m in Sources */,
 				1C5A9BF01C925F2300E4E843 /* PWDGroupEntity.m in Sources */,

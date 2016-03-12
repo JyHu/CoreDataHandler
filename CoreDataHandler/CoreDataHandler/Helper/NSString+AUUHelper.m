@@ -56,8 +56,6 @@
         
     }
     
-    AUUDebugLog(@"* * * * * * * * * * * * 截取到的数据类型名：%@",attribtueTypeName);
-    
     return attribtueTypeName;
 }
 
@@ -92,12 +90,19 @@
      
      */
     
-    NSArray *coredataOriginalAttribtues = @[@"NSNumber", @"NSDecimalNumber", @"NSString", @"NSDate", @"NSData", @"NSSet"];
+    // 在CoreData中得Entity所有的OC类型的数据类型只有以下几个
+    NSArray *coredataOriginalAttribtues = @[@"NSNumber",
+                                            @"NSDecimalNumber",
+                                            @"NSString",
+                                            @"NSDate",
+                                            @"NSData",
+                                            @"NSSet"];
     
     NSString *propertyName = [self propertyAttributeTypeName];
     
     if (![coredataOriginalAttribtues containsObject:propertyName])
     {
+        // 在Entity的数据类型中如果不是以上集中数据类型的话，就是关联的其他的Entity
         return propertyName;
     }
     

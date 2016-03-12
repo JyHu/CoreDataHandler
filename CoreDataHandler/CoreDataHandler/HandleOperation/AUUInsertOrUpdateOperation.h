@@ -78,27 +78,28 @@ typedef id (^AUUPrimeValueGenerateBlock)(id primeKey);
              completion:(void (^)(BOOL successed))completion;
 
 /**
- *  @author JyHu, 16-03-11 17:03:37
+ *  @author JyHu, 16-03-12 20:03:14
  *
- *  要操作的Entity的class
+ *  设置一些必要的参数
+ *
+ *  @param entityClass       要操作的Entity的Class
+ *  @param sortedKey         用来对查询到的数据排序的key
+ *  @param modelConvertBlock 数据转换用的block
  *
  *  @since v1.0
  */
-@property (assign, nonatomic) Class entityClass;
+- (void)insertOrUpdateWithEntityClass:(Class)entityClass
+                            sortedKey:(NSString *)sortedKey
+                    modelConvertBlock:(AUUModelConvertBlock)modelConvertBlock;
 
-/**
- *  @author JyHu, 16-03-11 17:03:20
- *
- *  用来对查询到的数据排序的key
- *
- *  @since v1.0
- */
-@property (retain, nonatomic) NSString *sortedKey;
+#pragma mark - 
+#pragma mark - 以下的参数是非必须按的参数，是为了保持数据的唯一性，用于数据更新用
+#pragma mark -
 
 /**
  *  @author JyHu, 16-03-11 17:03:28
  *
- *  是否需要操作成功后的通知提醒
+ *  是否需要操作成功后的通知提醒，默认为NO
  *
  *  @since v1.0
  */
@@ -107,20 +108,11 @@ typedef id (^AUUPrimeValueGenerateBlock)(id primeKey);
 /**
  *  @author JyHu, 16-03-11 17:03:22
  *
- *  主键
+ *  主键，如果设置了，就必须设置primeValueGenerateBlock这个block
  *
  *  @since v1.0
  */
 @property (retain, nonatomic) NSString *primeKey;
-
-/**
- *  @author JyHu, 16-03-11 17:03:05
- *
- *  数据转换的block
- *
- *  @since v1.0
- */
-@property (copy, nonatomic) AUUModelConvertBlock modelConvertBlock;
 
 /**
  *  @author JyHu, 16-03-11 17:03:51

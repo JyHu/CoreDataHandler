@@ -7,9 +7,6 @@
 //
 
 #import "AUUBaseRecordsCenter+Test.h"
-#import "AUUInsertOrUpdateOperation.h"
-#import "AUUFetchAllOperation.h"
-#import "AUUCleanUpOperation.h"
 
 
 #import "AUUPWDGroupModel.h"
@@ -29,15 +26,13 @@
     AUUInsertOrUpdateOperation *operation = [[AUUInsertOrUpdateOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator model:groupModel completion:^(BOOL successed) {
         
     }];
-    operation.entityClass = [PWDGroupEntity class];
-    operation.sortedKey = @"g_id";
+    [operation insertOrUpdateWithEntityClass:[PWDGroupEntity class] sortedKey:@"g_id" modelConvertBlock:^(id oriModel, id object, NSManagedObjectContext *managedObjectContext) {
+        [oriModel assignToEntity:object withManagedObjectContext:managedObjectContext];
+    }];
     operation.needCompletionNotification = YES;
     operation.primeKey = @"g_id";
     operation.primeValueGenerateBlock = ^(id primeKey){
         return [NSString stringWithFormat:@"%@ %zd", primeKey, arc4random_uniform(10000000)];
-    };
-    operation.modelConvertBlock = ^(id oriModel, id object, NSManagedObjectContext *managedObjectedContext){
-        [oriModel assignToEntity:object withManagedObjectContext:managedObjectedContext];
     };
     [self enQueueRecordOperation:operation];
 }
@@ -45,13 +40,9 @@
 - (void)fetchAllGroup
 {
     AUUFetchAllOperation *operation = [[AUUFetchAllOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
-    [operation fetchAllWithEnityClass:[PWDGroupEntity class] sortedKey:@"g_id" objConvert:^(NSArray *objs) {
-        for (PWDGroupEntity *groupEntity in objs)
-        {
-            AUUPWDGroupModel *groupModel = [groupEntity assignToModel];
-            
-            NSLog(@"fetched group model : %@", groupModel);
-        }
+    [operation fetchAllWithEnityClass:[PWDGroupEntity class] sortedKey:@"g_id" entitiesConvert:^(NSArray *entities) {
+        NSMutableArray *modelsArray = [entities convertEntitiesToModels];
+        NSLog(@"%@", modelsArray);
     }];
     [self enQueueRecordOperation:operation];
 }
@@ -77,13 +68,9 @@
 - (void)fetchAllDetails
 {
     AUUFetchAllOperation *operation = [[AUUFetchAllOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
-    [operation fetchAllWithEnityClass:[PWDDetailEntity class] sortedKey:@"p_id" objConvert:^(NSArray *objs) {
-        for (PWDDetailEntity *entity in objs)
-        {
-            AUUPWDDetailModel *model = [entity assignToModel];
-            
-            NSLog(@"fetched detail model : %@", model);
-        }
+    [operation fetchAllWithEnityClass:[PWDDetailEntity class] sortedKey:@"p_id" entitiesConvert:^(NSArray *entities) {
+        NSMutableArray *modelsArray = [entities convertEntitiesToModels];
+        NSLog(@"%@", modelsArray);
     }];
     [self enQueueRecordOperation:operation];
 }

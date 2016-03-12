@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+#import "AUUFetchAllOperation.h"
+#import "AUUInsertOrUpdateOperation.h"
+#import "AUUCleanUpOperation.h"
+
+#import "NSArray+AUUHelper.h"
+
 @class AUUBaseHandleOperation;
 
 @interface AUUBaseRecordsCenter : NSObject <NSFetchedResultsControllerDelegate>

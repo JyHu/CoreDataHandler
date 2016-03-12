@@ -14,7 +14,7 @@
 - (void)cleanupWithManagedObjectContext:(NSManagedObjectContext *)managedObjectedContext
                 ignoreAttributeTypeName:(NSString *)attributeTypeName
 {
-    AUUDebugLog(@"正在清理实体类对象 %@", NSStringFromClass([self class]));
+    AUUDebugLog(@"正在清理实体类对象 %@", self);
     
     // 先找一下Entity中关联的有Entity但不是NSSet的属性
     NSString *entityProperty = [self findoutPropertyAttributeNameWithFindType:AUUFindoutTypeEntity];
@@ -23,7 +23,10 @@
     {
         id obj = [self valueForKey:entityProperty];
         
-        AUUDebugLog(@"在清理的对象%@中有是Entity(%@)的属性%@", NSStringFromClass([self class]), NSStringFromClass([obj class]), entityProperty);
+        AUUDebugLog(@"在清理的对象%@中有是Entity(%@)的属性%@",
+                                            NSStringFromClass([self class]),
+                                            NSStringFromClass([obj class]),
+                                            entityProperty);
         
         if (![obj isKindOfClass:NSClassFromString(attributeTypeName)])
         {
@@ -39,9 +42,11 @@
     
     // 然后再找出属性中一对多的属性，即属性类型名为NSSet
     NSString *setProperty = [self findoutPropertyAttributeNameWithFindType:AUUFindoutTypeSet];
+    
     if (setProperty)
     {
         AUUDebugLog(@"在清理的实体类%@中存在一对多的属性，循环清理中", NSStringFromClass([self class]));
+        
         // 如果存在的话，就说明当前的Entity存在一对多的关系，循环去删除
         for (NSManagedObject *obj in [self valueForKey:setProperty])
         {
@@ -87,7 +92,8 @@
         NSString *propertyAttributeName = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
         
         // 当前key所对应的数据类型。
-        NSString *propertyAttributeTypeName = [[NSString stringWithCString:attributes encoding:NSUTF8StringEncoding] propertyAttributeTypeName];
+        NSString *propertyAttributeTypeName = [[NSString stringWithCString:attributes
+                                                                  encoding:NSUTF8StringEncoding] propertyAttributeTypeName];
         
         // 判断一下取到的属性类型是否是NSObject的子类，避免取值出错造成赋值失败
         if ([NSClassFromString(propertyAttributeTypeName) isSubclassOfClass:[NSObject class]])
@@ -101,7 +107,8 @@
             if ([NSClassFromString(propertyAttributeTypeName) isSubclassOfClass:[NSManagedObject class]])
             {
                 // 判断一下是否是AUUBaseManagedObject的子类，如果是的话需要取出Entity然后再次转换并赋值
-                [destinationModel setValue:[[self valueForKey:propertyAttributeName] assignToModel] forKey:propertyAttributeName];
+                [destinationModel setValue:[[self valueForKey:propertyAttributeName] assignToModel]
+                                    forKey:propertyAttributeName];
             }
             else if ([propertyAttributeTypeName isEqualToString:@"NSSet"])
             {

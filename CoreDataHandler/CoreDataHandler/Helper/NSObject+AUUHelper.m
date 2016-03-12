@@ -178,7 +178,8 @@
         
         const char *objc_attributes = property_getAttributes(property_t);
         
-        AUUDebugLog(@"%@ %@", [NSString stringWithCString:objc_name encoding:NSUTF8StringEncoding], [NSString stringWithCString:objc_attributes encoding:NSUTF8StringEncoding]);
+        AUUDebugLog(@"%@ %@",   [NSString stringWithCString:objc_name encoding:NSUTF8StringEncoding],
+                                [NSString stringWithCString:objc_attributes encoding:NSUTF8StringEncoding]);
     }
     
     property_ptr = NULL;

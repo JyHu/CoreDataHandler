@@ -12,11 +12,12 @@
 @interface NSManagedObject (AUUHelper)
 
 /**
- *  @author JyHu, 16-03-11 13:03:28
+ *  @author JyHu, 16-03-12 22:03:38
  *
  *  清空coredata中当前数据模型下的所有数据
  *
  *  @param managedObjectedContext 上下文
+ *  @param attributeTypeName      当前Entity的Class名
  *
  *  @since v1.0
  */

@@ -37,6 +37,33 @@
  */
 @property (copy, nonatomic) void (^completion)(BOOL successed);
 
+/**
+ *  @author JyHu, 16-03-11 17:03:05
+ *
+ *  数据转换的block
+ *
+ *  @since v1.0
+ */
+@property (copy, nonatomic) AUUModelConvertBlock modelConvertBlock;
+
+/**
+ *  @author JyHu, 16-03-11 17:03:37
+ *
+ *  要操作的Entity的class
+ *
+ *  @since v1.0
+ */
+@property (assign, nonatomic) Class entityClass;
+
+/**
+ *  @author JyHu, 16-03-11 17:03:20
+ *
+ *  用来对查询到的数据排序的key
+ *
+ *  @since v1.0
+ */
+@property (retain, nonatomic) NSString *sortedKey;
+
 @end
 
 @implementation AUUInsertOrUpdateOperation
@@ -63,6 +90,15 @@
     }
     
     return self;
+}
+
+- (void)insertOrUpdateWithEntityClass:(Class)entityClass
+                            sortedKey:(NSString *)sortedKey
+                    modelConvertBlock:(AUUModelConvertBlock)modelConvertBlock
+{
+    self.entityClass = entityClass;
+    self.sortedKey = sortedKey;
+    self.modelConvertBlock = modelConvertBlock;
 }
 
 - (void)insertOrUpdateRecords

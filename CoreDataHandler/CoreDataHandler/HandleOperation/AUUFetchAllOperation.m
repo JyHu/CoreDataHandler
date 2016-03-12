@@ -14,18 +14,36 @@
 
 @property (retain, nonatomic) NSString *sortedKey;
 
-@property (copy, nonatomic) void (^convert)(NSArray *objs);
+#ifdef _HasMJ
+
+@property (copy, nonatomic) void (^convertBlockOC)(NSManagedObjectContext *managedObjectContext);
+
+#endif
+
+@property (copy, nonatomic) void (^convertBlockAE)(NSArray *entities);
 
 @end
 
 @implementation AUUFetchAllOperation
 
-- (void)fetchAllWithEnityClass:(Class)cls sortedKey:(NSString *)skey
-                    objConvert:(void (^)(NSArray *))convert
+#ifdef _HasMJ
+
+- (void)fetchAllWithEntityClass:(Class)cls sortedKey:(NSString *)skey
+                entitiesConvert:(void (^)(NSManagedObjectContext *managedObjectContext))convertBlock
 {
     self.entityClass = cls;
     self.sortedKey = skey;
-    self.convert = convert;
+    self.convertBlockOC = convertBlock;
+}
+
+#endif
+
+- (void)fetchAllWithEnityClass:(Class)cls sortedKey:(NSString *)skey
+               entitiesConvert:(void (^)(NSArray *))convertBlock
+{
+    self.entityClass = cls;
+    self.sortedKey = skey;
+    self.convertBlockAE = convertBlock;
 }
 
 - (void)main
@@ -36,7 +54,18 @@
     {
         [self fetchedResultsController];
         
-        self.convert([[self fetchedResultsController] fetchedObjects]);
+#ifdef _HasMJ
+        
+        if (self.convertBlockOC)
+        {
+            self.convertBlockOC(self.managedObjectContext);
+        }
+        
+#endif
+        if (self.convertBlockAE)
+        {
+            self.convertBlockAE([[self fetchedResultsController] fetchedObjects]);
+        }
     }
     
     AUUDebugFinishWithInfo(@"查询实体类%@所有数据的线程结束", NSStringFromClass(self.entityClass));
