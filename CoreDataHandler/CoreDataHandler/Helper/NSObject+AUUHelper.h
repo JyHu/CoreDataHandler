@@ -52,6 +52,16 @@ typedef NS_ENUM(NSUInteger, AUUFindoutType) {
  */
 - (NSString *)findoutAttributeTypeNameWithAttributeName:(NSString *)name;
 
+
+/**
+ 将model转换成对应的entity
+
+ @param cls 对应的entity的class
+
+ @return 返回转换后的entity
+ */
+- (id)assignToEntityWithClass:(Class)cls;
+
 /**
  *  @author JyHu, 16-03-11 17:03:22
  *

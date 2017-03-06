@@ -36,8 +36,6 @@
         
         NSString *attributesString = [NSString stringWithCString:attributes encoding:NSUTF8StringEncoding];
         
-//        NSLog(@"%@\n%@", self, attributesString);
-        
         if (attributesString && attributesString.length > 0)
         {
             BOOL contained = NO;
@@ -56,9 +54,7 @@
             if (contained)
             {
                 const char *name = property_getName(property_t);
-                
-//                NSLog(@"set property name : %@", [NSString stringWithCString:name encoding:NSUTF8StringEncoding]);
-                
+                                
                 return [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
             }
         }
@@ -105,6 +101,26 @@
     property_ptr = NULL;
     
     return nil;
+}
+
+- (id)assignToEntityWithClass:(Class)cls
+{
+    id entity = [[cls alloc] init];
+    
+    unsigned int property_count = 0;
+    
+    objc_property_t *property_ptr = class_copyPropertyList(cls, &property_count);
+    
+    for (unsigned int i = 0; i < property_count; i ++)
+    {
+        objc_property_t property_t = property_ptr[i];
+        
+        const char *cname = property_getName(property_t);
+        
+        
+    }
+    
+    return entity;
 }
 
 /**
