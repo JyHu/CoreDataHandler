@@ -46,15 +46,15 @@
     
     [[AUUBaseRecordsCenter shareCenter] fetchAllGroup];
     
-    [[AUUBaseRecordsCenter shareCenter] fetchAllDetails];
-    
-    [[AUUBaseRecordsCenter shareCenter] cleanupGroup];
-    
-    [[AUUBaseRecordsCenter shareCenter] fetchAllGroup];
-    
-    [[AUUBaseRecordsCenter shareCenter] fetchAllDetails];
-    
-    [[AUUBaseRecordsCenter shareCenter] cleanupDetails];
+//    [[AUUBaseRecordsCenter shareCenter] fetchAllDetails];
+//    
+//    [[AUUBaseRecordsCenter shareCenter] cleanupGroup];
+//    
+//    [[AUUBaseRecordsCenter shareCenter] fetchAllGroup];
+//    
+//    [[AUUBaseRecordsCenter shareCenter] fetchAllDetails];
+//    
+//    [[AUUBaseRecordsCenter shareCenter] cleanupDetails];
 }
 
 - (void)didReceiveMemoryWarning {

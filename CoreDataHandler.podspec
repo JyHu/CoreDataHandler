@@ -1,11 +1,11 @@
 
 Pod::Spec.new do |s|
   s.name         = "CoreDataHandler"
-  s.version      = "0.0.1"
+  s.version      = "0.1.0"
   s.summary      = "This is a coredata operate framework"
   s.description  = "This is a coredata operate framework"
   s.homepage     = "http://www.auu.space"
-  s.source       = { :git => "https://github.com/JyHu/CoreDataHandler.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/JyHu/CoreDataHandler.git", :tag => "0.1.0" }
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author             = { "JyHu" => "auu.aug@gmail.com" }
   s.platform     = :ios, "8.0"

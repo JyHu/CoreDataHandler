@@ -138,6 +138,7 @@
 		1C10CF521E6E88F4000B3860 /* CoreDataHandler.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CoreDataHandler.podspec; sourceTree = "<group>"; };
 		1C10CF8E1E6E9712000B3860 /* AUUDeleteOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUUDeleteOperation.h; sourceTree = "<group>"; };
 		1C10CF8F1E6E9712000B3860 /* AUUDeleteOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUUDeleteOperation.m; sourceTree = "<group>"; };
+		1C10CF921E6EC99D000B3860 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				1C10CF521E6E88F4000B3860 /* CoreDataHandler.podspec */,
+				1C10CF921E6EC99D000B3860 /* README.md */,
 				1C10CEC01E6E835E000B3860 /* CoreDataHandler */,
 				1C10CECB1E6E835E000B3860 /* CoreDataHandlerTests */,
 				1C10CEFF1E6E8395000B3860 /* CoreDataHandlerTest */,

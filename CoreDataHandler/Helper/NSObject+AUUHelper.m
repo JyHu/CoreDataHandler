@@ -14,7 +14,8 @@
 
 @implementation NSObject (AUUHelper)
 
-- (id)assignToEntity:(NSManagedObject *)entity managedObjectContext:(NSManagedObjectContext *)managedObjectContext primaryKeyGenerateBlock:(AUUPrimeValueGenerateBlock)generateBlock
+- (id)assignToEntity:(NSManagedObject *)entity managedObjectContext:(NSManagedObjectContext *)managedObjectContext
+                primaryKeyGenerateBlock:(AUUPrimeValueGenerateBlock)generateBlock
 {
     unsigned int property_count = 0;
     
@@ -190,14 +191,12 @@
 - (NSString *)attributeTypeOfProperty_t:(objc_property_t)property_t
 {
     unsigned int outCount = 0;
-    
     objc_property_attribute_t *attribute_t =  property_copyAttributeList(property_t, &outCount);
-    
     NSString *attribute = [NSString stringWithUTF8String:attribute_t->value];
-    
     NSRange range = [attribute rangeOfString:@"\""];
-    
-    return range.location != NSNotFound ? [attribute substringWithRange:NSMakeRange(range.location + range.length, attribute.length - range.location - range.length - 1)] : attribute;
+    return range.location != NSNotFound ?
+                        [attribute substringWithRange:NSMakeRange(range.location + range.length,
+                                                                  attribute.length - range.location - range.length - 1)] : attribute;
 }
 
 - (NSString *)generateUUIDString

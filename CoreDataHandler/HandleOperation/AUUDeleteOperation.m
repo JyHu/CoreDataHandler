@@ -25,11 +25,11 @@
 
 - (void)deleteobjectWithModel:(id)model
 {
-    [self deleteobjectWithModels:@[model]];
+    [self deleteobjectWithModels: (model ? @[model] : nil)];
 }
 - (void)deleteobjectWithModel:(id)model completion:(void (^)(BOOL successed))completion
 {
-    [self deleteobjectWithModels:@[model] completion:completion];
+    [self deleteobjectWithModels: (model ? @[model] : nil) completion:completion];
 }
 
 - (void)deleteobjectWithModels:(NSArray *)models
@@ -54,7 +54,7 @@
 }
 - (void)deleteobjectWithModel:(id)model forEntityClass:(Class)cls primaryKey:(NSString *)priKey completion:(void (^)(BOOL successed))completion
 {
-    [self deleteobjectWithModels:@[model] forEntityClass:cls primaryKey:priKey completion:completion];
+    [self deleteobjectWithModels: (model ? @[model] : nil) forEntityClass:cls primaryKey:priKey completion:completion];
 }
 
 - (void)deleteobjectWithModels:(NSArray *)models forEntityClass:(Class)cls primaryKey:(NSString *)priKey

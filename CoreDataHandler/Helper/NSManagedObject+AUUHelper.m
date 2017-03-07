@@ -14,6 +14,12 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
 
+@interface NSManagedObject (_Private)
+
+@property (assign, nonatomic) BOOL wasEnumerate;
+
+@end
+
 @implementation NSManagedObject (AUUHelper)
 
 - (void)cleanupWithManagedObjectContext:(NSManagedObjectContext *)managedObjectedContext
@@ -21,6 +27,8 @@
     AUUDebugLog(@"正在清理实体类对象 %@", self);
     
     unsigned int properties_count = 0;
+    
+    self.wasEnumerate = YES;
     
     /*
      
@@ -43,9 +51,7 @@
     for (unsigned int i = 0; i < properties_count; i ++)
     {
         objc_property_t property_t = property_ptr[i];
-                
         NSString *attributeName = [NSString stringWithUTF8String:property_getName(property_t)];
-        
         NSString *attributeType = [self attributeTypeOfProperty_t:property_t];
         
         if (attributeType && attributeType.length > 0)
@@ -58,23 +64,47 @@
                 // 如果存在的话，就说明当前的Entity存在一对多的关系，循环去删除
                 for (NSManagedObject *obj in [self valueForKey:attributeName])
                 {
-                    [obj cleanupWithManagedObjectContext:managedObjectedContext];
+                    if (!obj.wasEnumerate)
+                    {
+                        [obj cleanupWithManagedObjectContext:managedObjectedContext];
+                    }
                 }
             }
             // 如果是Entity类型的话，就遍历它的属性，然后删除
             else if ([NSClassFromString(attributeType) isSubclassOfClass:[NSManagedObject class]])
             {
-                id obj = [self valueForKey:attributeName];
+                NSManagedObject *obj = [self valueForKey:attributeName];
                 
-                AUUDebugLog(@"在清理的对象%@中有是Entity(%@)的属性%@", NSStringFromClass([self class]), NSStringFromClass([obj class]), attributeName);
-                
-                [obj cleanupWithManagedObjectContext:managedObjectedContext];
+                if (!obj.wasEnumerate)
+                {
+                    AUUDebugLog(@"在清理的对象%@中有是Entity(%@)的属性%@", NSStringFromClass([self class]), NSStringFromClass([obj class]), attributeName);
+                    [obj cleanupWithManagedObjectContext:managedObjectedContext];
+                }
             }
         }
     }
     
     [managedObjectedContext deleteObject:self];
     free(property_ptr);
+}
+
+
+const char *kAUUEntityWasEnumeratedAssociatedKey = (void *)@"kAUUEntityWasEnumeratedAssociatedKey";
+
+- (void)setWasEnumerate:(BOOL)wasEnumerate
+{
+    objc_setAssociatedObject(self, kAUUEntityWasEnumeratedAssociatedKey, @(wasEnumerate), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)wasEnumerate
+{
+    id obj = objc_getAssociatedObject(self, kAUUEntityWasEnumeratedAssociatedKey);
+    
+    if (obj) {
+        return [obj boolValue];
+    }
+    
+    return NO;
 }
 
 

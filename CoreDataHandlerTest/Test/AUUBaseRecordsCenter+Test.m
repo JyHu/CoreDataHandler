@@ -28,11 +28,7 @@
 - (void)insertGroup:(AUUPWDGroupModel *)groupModel
 {
     AUUInsertOrUpdateOperation *operation = [[AUUInsertOrUpdateOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator SortKey:@"g_id"];
-    
-    [operation insertOrUpdateObject:groupModel completion:^(BOOL successed) {
-    
-    }];
-    
+    [operation insertOrUpdateObject:groupModel];
     [self enQueueRecordOperation:operation];
 }
 
@@ -49,9 +45,11 @@
             NSLog(@"%@ %@", NSStringFromClass([detailModel class]), detailModel);
         }
         
-//        AUUDeleteOperation *deleteOperation = [[AUUDeleteOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
-//        [deleteOperation deleteobjectWithModel:groupModel];
-//        [[AUUBaseRecordsCenter shareCenter] enQueueRecordOperation:deleteOperation];
+        AUUDeleteOperation *deleteOperation = [[AUUDeleteOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
+        [deleteOperation deleteobjectWithModel:groupModel completion:^(BOOL successed) {
+            NSLog(@"delete object %@", successed ? @"yes" : @"no");
+        }];
+        [[AUUBaseRecordsCenter shareCenter] enQueueRecordOperation:deleteOperation];
         
         NSLog(@"----");
     }];
@@ -61,9 +59,7 @@
 - (void)cleanupGroup
 {
     AUUCleanUpOperation *operation = [[AUUCleanUpOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
-    [operation cleanupWithEnityClass:[PWDGroupEntity class] sortedKey:@"g_id" completion:^{
-        
-    }];
+    [operation cleanupWithEnityClass:[PWDGroupEntity class] sortedKey:@"g_id"];
     [self enQueueRecordOperation:operation];
 }
 
