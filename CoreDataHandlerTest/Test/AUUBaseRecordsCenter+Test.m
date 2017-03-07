@@ -29,7 +29,9 @@
 {
     AUUInsertOrUpdateOperation *operation = [[AUUInsertOrUpdateOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator SortKey:@"g_id"];
     
-    [operation insertOrUpdateObject:groupModel completion:^(BOOL successed) {}];
+    [operation insertOrUpdateObject:groupModel completion:^(BOOL successed) {
+    
+    }];
     
     [self enQueueRecordOperation:operation];
 }
@@ -42,7 +44,14 @@
         
         AUUPWDGroupModel *groupModel = [[entities firstObject] assignToModel];
         
-        NSLog(@"%@", [groupModel description]);
+        for (AUUPWDDetailModel *detailModel in groupModel.passwords_ship)
+        {
+            NSLog(@"%@ %@", NSStringFromClass([detailModel class]), detailModel);
+        }
+        
+//        AUUDeleteOperation *deleteOperation = [[AUUDeleteOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
+//        [deleteOperation deleteobjectWithModel:groupModel];
+//        [[AUUBaseRecordsCenter shareCenter] enQueueRecordOperation:deleteOperation];
         
         NSLog(@"----");
     }];

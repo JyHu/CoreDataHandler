@@ -53,6 +53,8 @@
 		1C10CF4F1E6E83E9000B3860 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C10CF4E1E6E83E9000B3860 /* CoreData.framework */; };
 		1C10CF501E6E83F1000B3860 /* CoreDataHandler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C10CEBE1E6E835E000B3860 /* CoreDataHandler.framework */; };
 		1C10CF511E6E83F6000B3860 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C10CF4E1E6E83E9000B3860 /* CoreData.framework */; };
+		1C10CF901E6E9712000B3860 /* AUUDeleteOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CF8E1E6E9712000B3860 /* AUUDeleteOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C10CF911E6E9712000B3860 /* AUUDeleteOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CF8F1E6E9712000B3860 /* AUUDeleteOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +136,8 @@
 		1C10CF3B1E6E83CD000B3860 /* PasswordsData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PasswordsData.xcdatamodel; sourceTree = "<group>"; };
 		1C10CF4E1E6E83E9000B3860 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		1C10CF521E6E88F4000B3860 /* CoreDataHandler.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CoreDataHandler.podspec; sourceTree = "<group>"; };
+		1C10CF8E1E6E9712000B3860 /* AUUDeleteOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUUDeleteOperation.h; sourceTree = "<group>"; };
+		1C10CF8F1E6E9712000B3860 /* AUUDeleteOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUUDeleteOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +225,8 @@
 				1C10CEDF1E6E8376000B3860 /* AUUFetchAllOperation.m */,
 				1C10CEE01E6E8376000B3860 /* AUUInsertOrUpdateOperation.h */,
 				1C10CEE11E6E8376000B3860 /* AUUInsertOrUpdateOperation.m */,
+				1C10CF8E1E6E9712000B3860 /* AUUDeleteOperation.h */,
+				1C10CF8F1E6E9712000B3860 /* AUUDeleteOperation.m */,
 			);
 			path = HandleOperation;
 			sourceTree = "<group>";
@@ -343,6 +349,7 @@
 				1C10CEF81E6E8376000B3860 /* NSObject+AUUHelper.h in Headers */,
 				1C10CEEE1E6E8376000B3860 /* AUUCleanUpOperation.h in Headers */,
 				1C10CEF41E6E8376000B3860 /* NSArray+AUUHelper.h in Headers */,
+				1C10CF901E6E9712000B3860 /* AUUDeleteOperation.h in Headers */,
 				1C10CEEB1E6E8376000B3860 /* AUUMacros.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,6 +491,7 @@
 				1C10CEF11E6E8376000B3860 /* AUUFetchAllOperation.m in Sources */,
 				1C10CEEF1E6E8376000B3860 /* AUUCleanUpOperation.m in Sources */,
 				1C10CEED1E6E8376000B3860 /* AUUBaseHandleOperation.m in Sources */,
+				1C10CF911E6E9712000B3860 /* AUUDeleteOperation.m in Sources */,
 				1C10CEF51E6E8376000B3860 /* NSArray+AUUHelper.m in Sources */,
 				1C10CEF91E6E8376000B3860 /* NSObject+AUUHelper.m in Sources */,
 				1C10CEF71E6E8376000B3860 /* NSManagedObject+AUUHelper.m in Sources */,
@@ -909,6 +917,7 @@
 				1C10CED11E6E835E000B3860 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1C10CED51E6E835E000B3860 /* Build configuration list for PBXNativeTarget "CoreDataHandlerTests" */ = {
 			isa = XCConfigurationList;
@@ -917,6 +926,7 @@
 				1C10CED31E6E835E000B3860 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1C10CF121E6E8395000B3860 /* Build configuration list for PBXNativeTarget "CoreDataHandlerTest" */ = {
 			isa = XCConfigurationList;
@@ -925,6 +935,7 @@
 				1C10CF141E6E8395000B3860 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

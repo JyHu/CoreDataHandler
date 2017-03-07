@@ -16,6 +16,7 @@
 #import "AUUCleanUpOperation.h"
 #import "AUUFetchAllOperation.h"
 #import "AUUInsertOrUpdateOperation.h"
+#import "AUUDeleteOperation.h"
 
 #import "NSArray+AUUHelper.h"
 #import "NSManagedObject+AUUHelper.h"

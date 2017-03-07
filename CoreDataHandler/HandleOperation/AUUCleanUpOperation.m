@@ -49,8 +49,7 @@
              *
              *  @since v1.0
              */
-            [(NSManagedObject *)obj cleanupWithManagedObjectContext:self.managedObjectContext
-                                            ignoreAttributeTypeName:NSStringFromClass([obj class])];
+            [(NSManagedObject *)obj cleanupWithManagedObjectContext:self.managedObjectContext];
         }
         
         [self.managedObjectContext deleteObject:obj];

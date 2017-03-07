@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PWDGroupEntity.h"
+#import "AUUPWDDetailModel.h"
 
 @class PWDDetailEntity;
 
@@ -17,7 +18,7 @@
 @property (nullable, nonatomic, retain) NSString *g_id;
 @property (nullable, nonatomic, retain) NSString *g_name;
 @property (nonatomic, assign) BOOL g_synced;
-@property (nullable, nonatomic, retain) NSArray <PWDDetailEntity *> *passwords_ship;
+@property (nullable, nonatomic, retain) NSArray <AUUPWDDetailModel *> *passwords_ship;
 
 + (nonnull id)generate;
 

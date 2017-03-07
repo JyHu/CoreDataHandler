@@ -17,13 +17,28 @@
 @implementation NSManagedObject (AUUHelper)
 
 - (void)cleanupWithManagedObjectContext:(NSManagedObjectContext *)managedObjectedContext
-                ignoreAttributeTypeName:(NSString *)attributeTypeName
 {
     AUUDebugLog(@"正在清理实体类对象 %@", self);
     
     unsigned int properties_count = 0;
     
+    /*
+     
+     递归去删除 coredata 中的Entity
+     
+     先取出当前Entity的所有属性
+        -->如果是当前属性值还是Entity，则递归去删除它
+        -->如果当前属性值是一个集合，则递归它里面的所有元素，删除
+     
+     遍历属性的原因是因为，如果一个Entity A下面有个是集合类型，如果我直接删除A，那么A下所有的数据都还会存在，这就是一个bug。
+                如果A下得有个Entity B类型，如果我删除A的话，B还会存在，这也是bug。
+     所以需要便利所有的Entity属性，直到某个Entity所有的属性都不是集合或者Entity的时候，出了for就删除当前的entity，
+     然后递归往回退一层
+     
+     */
+    
     objc_property_t *property_ptr = class_copyPropertyList([self class], &properties_count);
+    
     
     for (unsigned int i = 0; i < properties_count; i ++)
     {
@@ -35,6 +50,7 @@
         
         if (attributeType && attributeType.length > 0)
         {
+            // 如果是集合类型，就继续遍历去删除
             if ([NSClassFromString(attributeType) isSubclassOfClass:[NSSet class]])
             {
                 AUUDebugLog(@"在清理的实体类%@中存在一对多的属性，循环清理中", NSStringFromClass([self class]));
@@ -42,34 +58,23 @@
                 // 如果存在的话，就说明当前的Entity存在一对多的关系，循环去删除
                 for (NSManagedObject *obj in [self valueForKey:attributeName])
                 {
-                    [obj cleanupWithManagedObjectContext:managedObjectedContext
-                                 ignoreAttributeTypeName:NSStringFromClass([self class])];
-                    
-                    [managedObjectedContext deleteObject:obj];
+                    [obj cleanupWithManagedObjectContext:managedObjectedContext];
                 }
             }
+            // 如果是Entity类型的话，就遍历它的属性，然后删除
             else if ([NSClassFromString(attributeType) isSubclassOfClass:[NSManagedObject class]])
             {
                 id obj = [self valueForKey:attributeName];
                 
-                AUUDebugLog(@"在清理的对象%@中有是Entity(%@)的属性%@",
-                            NSStringFromClass([self class]),
-                            NSStringFromClass([obj class]),
-                            attributeName);
+                AUUDebugLog(@"在清理的对象%@中有是Entity(%@)的属性%@", NSStringFromClass([self class]), NSStringFromClass([obj class]), attributeName);
                 
-                if (![obj isKindOfClass:NSClassFromString(attributeTypeName)])
-                {
-                    if ([obj isKindOfClass:[NSManagedObject class]])
-                    {
-                        [obj cleanupWithManagedObjectContext:managedObjectedContext
-                                     ignoreAttributeTypeName:NSStringFromClass([self class])];
-                        
-                        [managedObjectedContext deleteObject:obj];
-                    }
-                }
+                [obj cleanupWithManagedObjectContext:managedObjectedContext];
             }
         }
     }
+    
+    [managedObjectedContext deleteObject:self];
+    free(property_ptr);
 }
 
 
@@ -127,7 +132,7 @@
                     [destinationModel setValue:[[self valueForKey:propertyAttributeName] assignToModel]
                                         forKey:propertyAttributeName];
                 }
-                else if ([NSClassFromString(propertyAttributeName) isSubclassOfClass:[NSSet class]])
+                else if ([NSClassFromString(propertyAttributeTypeName) isSubclassOfClass:[NSSet class]])
                 {
                     // 如果属性的类型是NSSet的话，说明是一对多的关系，需要遍历一下然后转换赋值
                     

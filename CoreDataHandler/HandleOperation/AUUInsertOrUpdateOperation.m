@@ -89,12 +89,6 @@
 - (void)insertOrUpdateRecords
 {
     [self insertOrUpdateRecordsToDB];
-    
-    if (self.completion) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.completion(YES);
-        });
-    }
 }
 
 - (void)insertOrUpdateRecordsToDB

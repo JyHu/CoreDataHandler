@@ -16,12 +16,10 @@
  *  清空coredata中当前数据模型下的所有数据
  *
  *  @param managedObjectedContext 上下文
- *  @param attributeTypeName      当前Entity的Class名
  *
  *  @since v1.0
  */
-- (void)cleanupWithManagedObjectContext:(NSManagedObjectContext *)managedObjectedContext
-                ignoreAttributeTypeName:(NSString *)attributeTypeName;
+- (void)cleanupWithManagedObjectContext:(NSManagedObjectContext *)managedObjectedContext;
 
 /**
  *  @author JyHu, 16-03-11 13:03:04
