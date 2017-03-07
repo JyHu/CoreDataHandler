@@ -46,11 +46,15 @@
         
         if (self.fetchedEntitiesResultBlock)
         {
-            self.fetchedEntitiesResultBlock([[self fetchedResultsController] fetchedObjects]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.fetchedEntitiesResultBlock([[self fetchedResultsController] fetchedObjects]);
+            });
         }
         else
         {
-            [[NSNotificationCenter defaultCenter] postNotificationName:AUUFetchAllRecordsNotification object:[[[self fetchedResultsController] fetchedObjects] convertEntitiesToModels]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:AUUFetchAllRecordsNotification object:[[[self fetchedResultsController] fetchedObjects] convertEntitiesToModels]];
+            });
         }
     }
     

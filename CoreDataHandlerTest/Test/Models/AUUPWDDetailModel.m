@@ -12,8 +12,7 @@
 #import "AUUPWDHistoryModel.h"
 #import "AUUPWDExtraInfoModel.h"
 #import "PWDExtraInfoEntity.h"
-#import "AUUBaseRecordsCenter.h"
-#import "NSObject+AUUHelper.h"
+#import "CoreDataHandler.h"
 
 @implementation AUUPWDDetailModel
 

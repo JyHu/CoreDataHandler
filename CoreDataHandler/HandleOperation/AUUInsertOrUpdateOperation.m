@@ -207,10 +207,19 @@
             [self insertOrUpdateRecords];
         }
         
+        if (self.completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.completion(YES);
+            });
+        }
+        
         AUUDebugFinishWithInfo(@"插入或更新实体类%@数据的线程成功结束", [[self.recordsToUpdate firstObject] mapEntityClass]);
     }
     else
     {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.completion(YES);
+        });
         AUUDebugFinishWithInfo(@"插入或更新实体类%@数据的线程结束，因为没有数据", [[self.recordsToUpdate firstObject] mapEntityClass]);
     }
 }

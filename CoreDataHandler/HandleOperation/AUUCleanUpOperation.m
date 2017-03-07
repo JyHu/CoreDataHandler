@@ -59,7 +59,9 @@
     [self saveChangesWithFlag:YES];
     
     if (self.completion) {
-        self.completion();
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.completion();
+        });
     }
 }
 

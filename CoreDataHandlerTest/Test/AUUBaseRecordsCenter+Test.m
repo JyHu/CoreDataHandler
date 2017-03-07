@@ -19,6 +19,8 @@
 #import "PWDHistoryEntity.h"
 #import "PWDManagerEntity.h"
 
+#import "CoreDataHandler.h"
+
 #import "NSManagedObject+AUUHelper.h"
 
 @implementation AUUBaseRecordsCenter (Test)
@@ -27,7 +29,7 @@
 {
     AUUInsertOrUpdateOperation *operation = [[AUUInsertOrUpdateOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator SortKey:@"g_id"];
     
-    [operation insertOrUpdateObject:groupModel completion:^(BOOL successed) { }];
+    [operation insertOrUpdateObject:groupModel completion:^(BOOL successed) {}];
     
     [self enQueueRecordOperation:operation];
 }

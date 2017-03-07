@@ -10,22 +10,22 @@
 		1C10CEC81E6E835E000B3860 /* CoreDataHandler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C10CEBE1E6E835E000B3860 /* CoreDataHandler.framework */; };
 		1C10CECD1E6E835E000B3860 /* CoreDataHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CECC1E6E835E000B3860 /* CoreDataHandlerTests.m */; };
 		1C10CECF1E6E835E000B3860 /* CoreDataHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEC11E6E835E000B3860 /* CoreDataHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C10CEE91E6E8376000B3860 /* AUUBaseRecordsCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CED61E6E8376000B3860 /* AUUBaseRecordsCenter.h */; };
+		1C10CEE91E6E8376000B3860 /* AUUBaseRecordsCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CED61E6E8376000B3860 /* AUUBaseRecordsCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C10CEEA1E6E8376000B3860 /* AUUBaseRecordsCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CED71E6E8376000B3860 /* AUUBaseRecordsCenter.mm */; };
-		1C10CEEB1E6E8376000B3860 /* AUUMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CED81E6E8376000B3860 /* AUUMacros.h */; };
-		1C10CEEC1E6E8376000B3860 /* AUUBaseHandleOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEDA1E6E8376000B3860 /* AUUBaseHandleOperation.h */; };
+		1C10CEEB1E6E8376000B3860 /* AUUMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CED81E6E8376000B3860 /* AUUMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C10CEEC1E6E8376000B3860 /* AUUBaseHandleOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEDA1E6E8376000B3860 /* AUUBaseHandleOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C10CEED1E6E8376000B3860 /* AUUBaseHandleOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CEDB1E6E8376000B3860 /* AUUBaseHandleOperation.m */; };
-		1C10CEEE1E6E8376000B3860 /* AUUCleanUpOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEDC1E6E8376000B3860 /* AUUCleanUpOperation.h */; };
+		1C10CEEE1E6E8376000B3860 /* AUUCleanUpOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEDC1E6E8376000B3860 /* AUUCleanUpOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C10CEEF1E6E8376000B3860 /* AUUCleanUpOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CEDD1E6E8376000B3860 /* AUUCleanUpOperation.m */; };
-		1C10CEF01E6E8376000B3860 /* AUUFetchAllOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEDE1E6E8376000B3860 /* AUUFetchAllOperation.h */; };
+		1C10CEF01E6E8376000B3860 /* AUUFetchAllOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEDE1E6E8376000B3860 /* AUUFetchAllOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C10CEF11E6E8376000B3860 /* AUUFetchAllOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CEDF1E6E8376000B3860 /* AUUFetchAllOperation.m */; };
-		1C10CEF21E6E8376000B3860 /* AUUInsertOrUpdateOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEE01E6E8376000B3860 /* AUUInsertOrUpdateOperation.h */; };
+		1C10CEF21E6E8376000B3860 /* AUUInsertOrUpdateOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEE01E6E8376000B3860 /* AUUInsertOrUpdateOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C10CEF31E6E8376000B3860 /* AUUInsertOrUpdateOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CEE11E6E8376000B3860 /* AUUInsertOrUpdateOperation.m */; };
-		1C10CEF41E6E8376000B3860 /* NSArray+AUUHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEE31E6E8376000B3860 /* NSArray+AUUHelper.h */; };
+		1C10CEF41E6E8376000B3860 /* NSArray+AUUHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEE31E6E8376000B3860 /* NSArray+AUUHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C10CEF51E6E8376000B3860 /* NSArray+AUUHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CEE41E6E8376000B3860 /* NSArray+AUUHelper.m */; };
-		1C10CEF61E6E8376000B3860 /* NSManagedObject+AUUHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEE51E6E8376000B3860 /* NSManagedObject+AUUHelper.h */; };
+		1C10CEF61E6E8376000B3860 /* NSManagedObject+AUUHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEE51E6E8376000B3860 /* NSManagedObject+AUUHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C10CEF71E6E8376000B3860 /* NSManagedObject+AUUHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CEE61E6E8376000B3860 /* NSManagedObject+AUUHelper.m */; };
-		1C10CEF81E6E8376000B3860 /* NSObject+AUUHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEE71E6E8376000B3860 /* NSObject+AUUHelper.h */; };
+		1C10CEF81E6E8376000B3860 /* NSObject+AUUHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CEE71E6E8376000B3860 /* NSObject+AUUHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C10CEF91E6E8376000B3860 /* NSObject+AUUHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CEE81E6E8376000B3860 /* NSObject+AUUHelper.m */; };
 		1C10CF021E6E8395000B3860 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CF011E6E8395000B3860 /* main.m */; };
 		1C10CF051E6E8395000B3860 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CF041E6E8395000B3860 /* AppDelegate.m */; };
@@ -133,6 +133,7 @@
 		1C10CF391E6E83CD000B3860 /* AUUPWDManagerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUUPWDManagerModel.m; sourceTree = "<group>"; };
 		1C10CF3B1E6E83CD000B3860 /* PasswordsData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PasswordsData.xcdatamodel; sourceTree = "<group>"; };
 		1C10CF4E1E6E83E9000B3860 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		1C10CF521E6E88F4000B3860 /* CoreDataHandler.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CoreDataHandler.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +168,7 @@
 		1C10CEB21E6E82A6000B3860 = {
 			isa = PBXGroup;
 			children = (
+				1C10CF521E6E88F4000B3860 /* CoreDataHandler.podspec */,
 				1C10CEC01E6E835E000B3860 /* CoreDataHandler */,
 				1C10CECB1E6E835E000B3860 /* CoreDataHandlerTests */,
 				1C10CEFF1E6E8395000B3860 /* CoreDataHandlerTest */,
@@ -340,8 +342,8 @@
 				1C10CEF01E6E8376000B3860 /* AUUFetchAllOperation.h in Headers */,
 				1C10CEF81E6E8376000B3860 /* NSObject+AUUHelper.h in Headers */,
 				1C10CEEE1E6E8376000B3860 /* AUUCleanUpOperation.h in Headers */,
-				1C10CEEB1E6E8376000B3860 /* AUUMacros.h in Headers */,
 				1C10CEF41E6E8376000B3860 /* NSArray+AUUHelper.h in Headers */,
+				1C10CEEB1E6E8376000B3860 /* AUUMacros.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,7 +618,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = CoreDataHandler/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -673,7 +675,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = CoreDataHandler/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jyhu.CoreDataHandler;

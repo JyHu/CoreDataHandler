@@ -38,7 +38,11 @@
 
 - (BOOL)initVariableWithEntityClass:(Class)cls sortedKey:(NSString *)key
 {
-    NSAssert1([cls isSubclassOfClass:[NSManagedObject class]], @"要查询的实体类%@不是NSManagedObject的子类", NSStringFromClass(cls));
+    if (!cls)
+    {
+        AUUDebugLog(@"要查询的实体类%@不是NSManagedObject的子类或者为空", NSStringFromClass(cls));
+        return NO;
+    }
     
     if (class_getProperty(cls, [key UTF8String]) != NULL)
     {
