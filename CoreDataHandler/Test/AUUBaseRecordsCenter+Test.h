@@ -33,15 +33,6 @@
 - (void)fetchAllGroup;
 
 /**
- *  @author JyHu, 16-03-12 22:03:14
- *
- *  测试数据转换
- *
- *  @since v1.0
- */
-- (void)assignTest;
-
-/**
  *  @author JyHu, 16-03-12 22:03:24
  *
  *  测试清空所有的Group数据

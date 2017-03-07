@@ -12,11 +12,9 @@
 
 @implementation PWDGroupEntity
 
-// Insert code here to add functionality to your managed object subclass
-
-- (id)assignToModel
+- (Class)mapModelClass
 {
-    return [self assignToModelWithClass:[AUUPWDGroupModel class]];
+    return [AUUPWDGroupModel class];
 }
 
 @end

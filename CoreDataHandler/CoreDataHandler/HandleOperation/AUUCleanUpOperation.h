@@ -30,5 +30,6 @@
  */
 - (void)cleanupWithEnityClass:(Class)cls sortedKey:(NSString *)skey
                    completion:(void (^)(void))completion;
+- (void)cleanupWithEnityClass:(Class)cls sortedKey:(NSString *)skey;
 
 @end

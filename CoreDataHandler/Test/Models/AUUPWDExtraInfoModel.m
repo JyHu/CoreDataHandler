@@ -7,29 +7,44 @@
 //
 
 #import "AUUPWDExtraInfoModel.h"
+#import "NSObject+AUUHelper.h"
 
 @implementation AUUPWDExtraInfoModel
-
-- (void)assignToEntity:(PWDExtraInfoEntity *)entity withManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
-{
-    entity.e_id = self.e_id;
-    entity.e_type = @(self.e_type);
-    entity.e_value = self.e_value;
-    entity.e_synced = @(self.e_synced);
-    entity.e_attrname = self.e_attrname;
-}
 
 + (id)generate
 {
     AUUPWDExtraInfoModel *model = [[AUUPWDExtraInfoModel alloc] init];
     
-    model.e_id = [AUUBaseRecordsCenter generateUniqueIdentifier];
+    model.e_id = [AUUBaseRecordsCenter generateUUIDString];
     model.e_type = arc4random_uniform(10);
     model.e_value = [NSString stringWithFormat:@"generate value %zd", arc4random_uniform(100000)];
     model.e_synced = arc4random_uniform(2);
     model.e_attrname = [NSString stringWithFormat:@"generate attrname %zd", arc4random_uniform(1000000)];
     
     return model;
+}
+
+- (NSString *)primaryKey
+{
+    return @"e_id";
+}
+
+- (Class)mapEntityClass
+{
+    return [PWDExtraInfoEntity class];
+}
+
+- (NSString *)description
+{
+    NSMutableString *desc = [[NSMutableString alloc] init];
+    
+    [desc appendFormat:@"e_id : %@\n", self.e_id];
+    [desc appendFormat:@"e_type : %@\n", @(self.e_type)];
+    [desc appendFormat:@"e_value : %@\n", self.e_value];
+    [desc appendFormat:@"e_synced : %@\n", @(self.e_synced)];
+    [desc appendFormat:@"e_attrname : %@\n", self.e_attrname];
+    
+    return desc;
 }
 
 @end

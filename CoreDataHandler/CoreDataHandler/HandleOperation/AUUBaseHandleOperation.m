@@ -8,7 +8,8 @@
 
 #import "AUUBaseHandleOperation.h"
 #import "AUUBaseRecordsCenter.h"
-#import "NSManagedObject+AUUHelper.h"
+#import "NSObject+AUUHelper.h"
+#import "AUUMacros.h"
 
 
 @interface AUUBaseHandleOperation() <NSFetchedResultsControllerDelegate>
@@ -37,14 +38,9 @@
 
 - (BOOL)initVariableWithEntityClass:(Class)cls sortedKey:(NSString *)key
 {
-    if (![cls isSubclassOfClass:[NSManagedObject class]])
-    {
-        AUUDebugLog(@"要查询的实体类%@不是NSManagedObject的子类",NSStringFromClass(cls));
-        
-        return NO;
-    }
+    NSAssert1([cls isSubclassOfClass:[NSManagedObject class]], @"要查询的实体类%@不是NSManagedObject的子类", NSStringFromClass(cls));
     
-    if ([cls whetherContainsAttribute:key])
+    if (class_getProperty(cls, [key UTF8String]) != NULL)
     {
         // 要查询的实体类
         NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass(cls)

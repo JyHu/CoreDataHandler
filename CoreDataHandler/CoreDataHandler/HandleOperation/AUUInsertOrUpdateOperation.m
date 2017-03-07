@@ -7,6 +7,8 @@
 //
 
 #import "AUUInsertOrUpdateOperation.h"
+#import "NSObject+AUUHelper.h"
+#import "AUUMacros.h"
 
 @interface AUUInsertOrUpdateOperation()
 
@@ -47,15 +49,6 @@
 @property (copy, nonatomic) AUUModelConvertBlock modelConvertBlock;
 
 /**
- *  @author JyHu, 16-03-11 17:03:37
- *
- *  要操作的Entity的class
- *
- *  @since v1.0
- */
-@property (assign, nonatomic) Class entityClass;
-
-/**
  *  @author JyHu, 16-03-11 17:03:20
  *
  *  用来对查询到的数据排序的key
@@ -68,44 +61,49 @@
 
 @implementation AUUInsertOrUpdateOperation
 
-- (id)initWithSharedPSC:(NSPersistentStoreCoordinator *)psc
-                  model:(id)model completion:(void (^)(BOOL successed))completion
-{
-    return [self initWithSharedPSC:psc modelsArray:@[model] completion:completion];
-}
-
-- (id)initWithSharedPSC:(NSPersistentStoreCoordinator *)psc
-            modelsArray:(NSArray *)modelsArray
-             completion:(void (^)(BOOL successed))completion
+- (id)initWithSharedPSC:(NSPersistentStoreCoordinator *)psc SortKey:(NSString *)sortKey
 {
     self = [super initWithSharedPSC:psc];
     
     if (self)
     {
-        self.recordsToUpdate = modelsArray;
-        
-        self.completion = completion;
-        
+        self.sortedKey = sortKey;
         self.needCompletionNotification = YES;
     }
     
     return self;
 }
 
-- (void)insertOrUpdateWithEntityClass:(Class)entityClass
-                            sortedKey:(NSString *)sortedKey
-                    modelConvertBlock:(AUUModelConvertBlock)modelConvertBlock
+- (void)insertOrUpdateObject:(id)model
 {
-    self.entityClass = entityClass;
-    self.sortedKey = sortedKey;
-    self.modelConvertBlock = modelConvertBlock;
+    [self insertOrUpdateObjects:@[model]];
+}
+
+- (void)insertOrUpdateObjects:(NSArray *)models
+{
+    [self insertOrUpdateObjects:models completion:nil];
+}
+
+- (void)insertOrUpdateObject:(id)model completion:(void (^)(BOOL))completion
+{
+    [self insertOrUpdateObjects:@[model] completion:completion];
+}
+
+- (void)insertOrUpdateObjects:(NSArray *)models completion:(void (^)(BOOL))completion
+{
+    self.completion = completion;
+    self.recordsToUpdate = models;
 }
 
 - (void)insertOrUpdateRecords
 {
     [self insertOrUpdateRecordsToDB];
     
-    self.completion(YES);
+    if (self.completion) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.completion(YES);
+        });
+    }
 }
 
 - (void)insertOrUpdateRecordsToDB
@@ -114,7 +112,7 @@
     {
         id oriObj = nil;
         
-        if (self.primeKey)
+        if ([model primaryKey])
         {
             /**
              *  @author JyHu, 16-03-11 17:03:27
@@ -123,7 +121,7 @@
              *
              *  @since v1.0
              */
-            oriObj = [self originalObjectWithPrimeValue:[model valueForKey:self.primeKey]];
+            oriObj = [self originalObjectWithPrimeValue:[model valueForKey:[model primaryKey]] primaryKey:[model primaryKey]];
         }
         
         if (oriObj == nil)
@@ -135,7 +133,7 @@
              *
              *  @since v1.0
              */
-            oriObj = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(self.entityClass)
+            oriObj = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([model mapEntityClass])
                                                    inManagedObjectContext:self.managedObjectContext];
             
             AUUDebugLog(@"新建一个存储的数据对象成功，%@", oriObj);
@@ -147,18 +145,18 @@
              *
              *  @since v1.0
              */
-            if (self.primeKey)
+            if ([model primaryKey])
             {
-                id primeValue = self.primeValueGenerateBlock(self.primeKey);
+                id primeValue = self.primeValueGenerateBlock ? self.primeValueGenerateBlock([model primaryKey], oriObj) : [self generateUUIDString];
                 
-                [oriObj setValue:primeValue forKey:self.primeKey];
+                [oriObj setValue:primeValue forKey:[model primaryKey]];
                 
                 // 同步的设置到model中
-                [model setValue:primeValue forKey:self.primeKey];
+                [model setValue:primeValue forKey:[model primaryKey]];
             }
         }
         
-        self.modelConvertBlock(model, oriObj, self.managedObjectContext);
+        [model assignToEntity:oriObj managedObjectContext:self.managedObjectContext primaryKeyGenerateBlock:self.primeValueGenerateBlock];
         
         [self.insertOrUpdateObjectsArray addObject:oriObj];
     }
@@ -178,16 +176,16 @@
  *
  *  @since v1.0
  */
-- (id)originalObjectWithPrimeValue:(id)value
+- (id)originalObjectWithPrimeValue:(id)value primaryKey:(NSString *)primaryKey
 {
-    if (!self.primeKey)
+    if (!primaryKey)
     {
         return nil;
     }
     
     for (id obj in [[self fetchedResultsController] fetchedObjects])
     {
-        id oriPrimeKeyValue = [obj valueForKey:self.primeKey];
+        id oriPrimeKeyValue = [obj valueForKey:primaryKey];
         
         if ([oriPrimeKeyValue isEqual:value])
         {
@@ -197,33 +195,32 @@
         }
     }
     
-    AUUDebugLog(@"在本地数据库中没有找到相对应的实体对象，primeKey=%@, value=%@", self.primeKey, value);
+    AUUDebugLog(@"在本地数据库中没有找到相对应的实体对象，primeKey=%@, value=%@", primaryKey, value);
     
     return nil;
 }
 
 - (void)main
 {
-    NSAssert(self.entityClass, @"Entity的Class没有设置");
+    NSAssert([[self.recordsToUpdate firstObject] mapEntityClass], @"Entity的Class没有设置");
     NSAssert(self.sortedKey, @"用来排序的key没有设置");
-    NSAssert(self.modelConvertBlock, @"用来进行model和object转换的Block没有设置");
     
-    AUUDebugBeginWithInfo(@"插入或更新实体类%@数据的线程开始", self.entityClass);
+    AUUDebugBeginWithInfo(@"插入或更新实体类%@数据的线程开始", [[self.recordsToUpdate firstObject] mapEntityClass]);
     
     if (self.recordsToUpdate && self.recordsToUpdate.count > 0)
     {
-        if ([self initVariableWithEntityClass:self.entityClass sortedKey:self.sortedKey])
+        if ([self initVariableWithEntityClass:[[self.recordsToUpdate firstObject] mapEntityClass] sortedKey:self.sortedKey])
         {
             [self fetchedResultsController];
             
             [self insertOrUpdateRecords];
         }
         
-        AUUDebugFinishWithInfo(@"插入或更新实体类%@数据的线程成功结束", self.entityClass);
+        AUUDebugFinishWithInfo(@"插入或更新实体类%@数据的线程成功结束", [[self.recordsToUpdate firstObject] mapEntityClass]);
     }
     else
     {
-        AUUDebugFinishWithInfo(@"插入或更新实体类%@数据的线程结束，因为没有数据", self.entityClass);
+        AUUDebugFinishWithInfo(@"插入或更新实体类%@数据的线程结束，因为没有数据", [[self.recordsToUpdate firstObject] mapEntityClass]);
     }
 }
 

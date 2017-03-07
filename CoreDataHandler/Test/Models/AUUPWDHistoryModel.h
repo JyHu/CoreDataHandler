@@ -16,8 +16,6 @@
 @property (nullable, nonatomic, retain) NSString *h_id;
 @property (nonatomic, assign) BOOL h_synced;
 
-- (void)assignToEntity:(PWDHistoryEntity * _Nonnull)entity withManagedObjectContext:(NSManagedObjectContext * _Nonnull)managedObjectContext;
-
 + (nonnull id)generate;
 
 @end

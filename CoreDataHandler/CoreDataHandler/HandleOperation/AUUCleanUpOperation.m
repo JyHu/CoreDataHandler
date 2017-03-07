@@ -8,6 +8,7 @@
 
 #import "AUUCleanUpOperation.h"
 #import "NSManagedObject+AUUHelper.h"
+#import "AUUMacros.h"
 
 
 @interface AUUCleanUpOperation()
@@ -21,6 +22,11 @@
 @end
 
 @implementation AUUCleanUpOperation
+
+- (void)cleanupWithEnityClass:(Class)cls sortedKey:(NSString *)skey
+{
+    [self cleanupWithEnityClass:cls sortedKey:skey completion:nil];
+}
 
 - (void)cleanupWithEnityClass:(Class)cls sortedKey:(NSString *)skey
                    completion:(void (^)(void))completion
@@ -51,6 +57,10 @@
     }
     
     [self saveChangesWithFlag:YES];
+    
+    if (self.completion) {
+        self.completion();
+    }
 }
 
 - (void)main

@@ -12,11 +12,9 @@
 
 @implementation PWDExtraInfoEntity
 
-// Insert code here to add functionality to your managed object subclass
-
-- (id)assignToModel
+- (Class)mapModelClass
 {
-    return [self assignToModelWithClass:[AUUPWDExtraInfoModel class]];
+    return [AUUPWDExtraInfoModel class];
 }
 
 @end

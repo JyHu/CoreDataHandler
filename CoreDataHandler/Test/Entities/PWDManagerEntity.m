@@ -11,11 +11,9 @@
 
 @implementation PWDManagerEntity
 
-// Insert code here to add functionality to your managed object subclass
-
-- (id)assignToModel
+- (Class)mapModelClass
 {
-    return [self assignToModelWithClass:[AUUPWDManagerModel class]];
+    return [AUUPWDManagerModel class];
 }
 
 @end

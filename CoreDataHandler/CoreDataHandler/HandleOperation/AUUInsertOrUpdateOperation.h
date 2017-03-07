@@ -36,7 +36,7 @@ typedef void (^AUUModelConvertBlock)(id oriModel,
  *
  *  @since v1.0
  */
-typedef id (^AUUPrimeValueGenerateBlock)(id primeKey);
+typedef id (^AUUPrimeValueGenerateBlock)(id primeKey, NSManagedObject *managedObject);
 
 /**
  数据查询的operation
@@ -49,48 +49,25 @@ typedef id (^AUUPrimeValueGenerateBlock)(id primeKey);
  *  初始化方法
  *
  *  @param psc         持久化存储助理
- *  @param modelsArray 要存储的数据（model）的数组
- *  @param completion  操作结束后的block回调
+ *  @param sortKey     排序用的key
  *
  *  @return self
  *
  *  @since v1.0
  */
-- (id)initWithSharedPSC:(NSPersistentStoreCoordinator *)psc
-            modelsArray:(NSArray *)modelsArray
-             completion:(void (^)(BOOL successed))completion;
+- (instancetype)initWithSharedPSC:(NSPersistentStoreCoordinator *)psc SortKey:(NSString *)sortKey;
 
 /**
- *  @author JyHu, 16-03-11 17:03:35
- *
- *  初始化方法
- *
- *  @param psc        持久化存储助理
- *  @param model      要存储的数据模型（model）
- *  @param completion 操作结束后的blok回调
- *
- *  @return self
- *
- *  @since v1.0
- */
-- (id)initWithSharedPSC:(NSPersistentStoreCoordinator *)psc
-                  model:(id)model
-             completion:(void (^)(BOOL successed))completion;
+ 插入或更新数据到coredata
 
-/**
- *  @author JyHu, 16-03-12 20:03:14
- *
- *  设置一些必要的参数
- *
- *  @param entityClass       要操作的Entity的Class
- *  @param sortedKey         用来对查询到的数据排序的key
- *  @param modelConvertBlock 数据转换用的block
- *
- *  @since v1.0
+ @param model 要插入的数据
+ @param models  插入一组数据到coredata
+ @param completion 插入成功后的回调
  */
-- (void)insertOrUpdateWithEntityClass:(Class)entityClass
-                            sortedKey:(NSString *)sortedKey
-                    modelConvertBlock:(AUUModelConvertBlock)modelConvertBlock;
+- (void)insertOrUpdateObject:(id)model;
+- (void)insertOrUpdateObjects:(NSArray *)models;
+- (void)insertOrUpdateObject:(id)model completion:(void (^)(BOOL successed))completion;
+- (void)insertOrUpdateObjects:(NSArray *)models completion:(void (^)(BOOL successed))completion;
 
 #pragma mark - 
 #pragma mark - 以下的参数是非必须按的参数，是为了保持数据的唯一性，用于数据更新用
@@ -99,20 +76,11 @@ typedef id (^AUUPrimeValueGenerateBlock)(id primeKey);
 /**
  *  @author JyHu, 16-03-11 17:03:28
  *
- *  是否需要操作成功后的通知提醒，默认为NO
+ *  是否需要操作成功后的通知提醒，默认为YES
  *
  *  @since v1.0
  */
 @property (assign, nonatomic) BOOL needCompletionNotification;
-
-/**
- *  @author JyHu, 16-03-11 17:03:22
- *
- *  主键，如果设置了，就必须设置primeValueGenerateBlock这个block
- *
- *  @since v1.0
- */
-@property (retain, nonatomic) NSString *primeKey;
 
 /**
  *  @author JyHu, 16-03-11 17:03:51

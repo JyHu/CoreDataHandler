@@ -26,8 +26,6 @@
 @property (nullable, nonatomic, retain) NSArray *history_ship;
 @property (nullable, nonatomic, retain) AUUPWDManagerModel *manager_ship;
 
-- (void)assignToEntity:(PWDDetailEntity * _Nonnull)entity withManagedObjectContext:(NSManagedObjectContext * _Nonnull)managedObjectContext;
-
 + (nonnull id)generate;
 
 @end

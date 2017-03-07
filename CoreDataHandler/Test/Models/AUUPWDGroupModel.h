@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "PWDGroupEntity.h"
 
+@class PWDDetailEntity;
+
 @interface AUUPWDGroupModel : NSObject
 
 @property (nullable, nonatomic, retain) NSDate *g_date;
 @property (nullable, nonatomic, retain) NSString *g_id;
 @property (nullable, nonatomic, retain) NSString *g_name;
 @property (nonatomic, assign) BOOL g_synced;
-@property (nullable, nonatomic, retain) NSArray *passwords_ship;
-
-- (void)assignToEntity:(PWDGroupEntity * _Nonnull)entity withManagedObjectContext:( NSManagedObjectContext * _Nonnull )managedObjectContext;
+@property (nullable, nonatomic, retain) NSArray <PWDDetailEntity *> *passwords_ship;
 
 + (nonnull id)generate;
 

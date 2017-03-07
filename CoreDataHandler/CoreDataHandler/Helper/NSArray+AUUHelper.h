@@ -19,6 +19,6 @@
  *
  *  @since v1.0
  */
-- (NSMutableArray *)convertEntitiesToModels;
+- (NSArray *)convertEntitiesToModels;
 
 @end

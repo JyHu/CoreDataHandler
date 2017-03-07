@@ -7,6 +7,8 @@
 //
 
 #import "AUUFetchAllOperation.h"
+#import "AUUMacros.h"
+#import "NSArray+AUUHelper.h"
 
 @interface AUUFetchAllOperation()
 
@@ -14,36 +16,23 @@
 
 @property (retain, nonatomic) NSString *sortedKey;
 
-#ifdef _HasMJ
-
-@property (copy, nonatomic) void (^convertBlockOC)(NSManagedObjectContext *managedObjectContext);
-
-#endif
-
-@property (copy, nonatomic) void (^convertBlockAE)(NSArray *entities);
+@property (copy, nonatomic) void (^fetchedEntitiesResultBlock)(NSArray *entities);
 
 @end
 
 @implementation AUUFetchAllOperation
 
-#ifdef _HasMJ
-
-- (void)fetchAllWithEntityClass:(Class)cls sortedKey:(NSString *)skey
-                entitiesConvert:(void (^)(NSManagedObjectContext *managedObjectContext))convertBlock
+- (void)fetchAllWithEnityClass:(Class)cls sortedKey:(NSString *)skey
 {
-    self.entityClass = cls;
-    self.sortedKey = skey;
-    self.convertBlockOC = convertBlock;
+    [self fetchAllWithEnityClass:cls sortedKey:skey fetchedEntities:nil];
 }
 
-#endif
-
 - (void)fetchAllWithEnityClass:(Class)cls sortedKey:(NSString *)skey
-               entitiesConvert:(void (^)(NSArray *))convertBlock
+               fetchedEntities:(void (^)(NSArray *))fetchedResultBlock
 {
     self.entityClass = cls;
     self.sortedKey = skey;
-    self.convertBlockAE = convertBlock;
+    self.fetchedEntitiesResultBlock = fetchedResultBlock;
 }
 
 - (void)main
@@ -54,17 +43,13 @@
     {
         [self fetchedResultsController];
         
-#ifdef _HasMJ
-        
-        if (self.convertBlockOC)
+        if (self.fetchedEntitiesResultBlock)
         {
-            self.convertBlockOC(self.managedObjectContext);
+            self.fetchedEntitiesResultBlock([[self fetchedResultsController] fetchedObjects]);
         }
-        
-#endif
-        if (self.convertBlockAE)
+        else
         {
-            self.convertBlockAE([[self fetchedResultsController] fetchedObjects]);
+            [[NSNotificationCenter defaultCenter] postNotificationName:AUUFetchAllRecordsNotification object:[[[self fetchedResultsController] fetchedObjects] convertEntitiesToModels]];
         }
     }
     

@@ -11,11 +11,9 @@
 
 @implementation PWDHistoryEntity
 
-// Insert code here to add functionality to your managed object subclass
-
-- (id)assignToModel
+- (Class)mapModelClass
 {
-    return [self assignToModelWithClass:[AUUPWDHistoryModel class]];
+    return [AUUPWDHistoryModel class];
 }
 
 @end

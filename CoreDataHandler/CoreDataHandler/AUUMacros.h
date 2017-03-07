@@ -9,7 +9,12 @@
 #ifndef AUUMacros_h
 #define AUUMacros_h
 
-#   if DEBUG
+
+// Project -->  Target -->  Build Setting  -->  Preprocessor Macros debug栏添加 AUUDEBUG=1
+
+
+
+#   if AUUDEBUG
 
 /**
  *  @author JyHu, 16-03-12 18:03:52

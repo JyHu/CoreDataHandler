@@ -11,24 +11,29 @@
 
 @implementation NSArray (AUUHelper)
 
-- (NSMutableArray *)convertEntitiesToModels
+- (NSArray *)convertEntitiesToModels
 {
-    if (self && self.count > 0)
-    {
-        NSMutableArray *modelsArray = [[NSMutableArray alloc] init];
-        
-        for (id entity in self)
-        {
-            if ([entity isKindOfClass:[NSManagedObject class]])
-            {
-                [modelsArray addObject:[entity assignToModel]];
+    return [self auu_map:^id(NSManagedObject *entity) {
+        if ([entity isKindOfClass:[NSManagedObject class]]) {
+            return [entity assignToModel];
+        }
+        return nil;
+    }];
+}
+
+- (NSArray *)auu_map:(id(^)(id))map
+{
+    NSMutableArray *res = [[NSMutableArray alloc] init];
+    if (self && self.count > 0) {
+        for (id obj in self) {
+            id trans = map(obj);
+            if (trans) {
+                [res addObject:trans];
             }
         }
-        
-        return modelsArray;
     }
     
-    return nil;
+    return res;
 }
 
 @end

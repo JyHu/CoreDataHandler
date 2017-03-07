@@ -55,32 +55,6 @@
     [[AUUBaseRecordsCenter shareCenter] fetchAllDetails];
     
     [[AUUBaseRecordsCenter shareCenter] cleanupDetails];
-    
-    
-    
-//    AUUDebugLog(@"%@", [AUUBaseRecordsCenter generateUniqueIdentifier]);
-    
-//    [[AUUBaseRecordsCenter shareCenter] assignTest];
-    
-//    [self test];
-}
-
-- (void)test
-{
-    unsigned int properties_count = 0;
-    
-    objc_property_t *property_ptr = class_copyPropertyList([PWDGroupEntity class], &properties_count);
-    
-    for (unsigned int i = 0; i < properties_count; i ++)
-    {
-        objc_property_t property_t = property_ptr[i];
-        
-        const char *name = property_getName(property_t);
-        
-        const char *attribtues = property_getAttributes(property_t);
-        
-        NSLog(@"%@ %@", [NSString stringWithCString:name encoding:NSUTF8StringEncoding], [NSString stringWithCString:attribtues encoding:NSUTF8StringEncoding]);
-    }
 }
 
 - (void)didReceiveMemoryWarning {

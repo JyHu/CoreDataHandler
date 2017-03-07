@@ -53,7 +53,7 @@
 /**
  *  @author JyHu, 16-03-10 23:03:06
  *
- *  事务回滚
+ *  状态回滚
  *
  *  @since 1.0
  */
@@ -89,17 +89,9 @@
 - (void)enQueueRecordOperation:(AUUBaseHandleOperation *)operation;
 
 /**
- *  @author JyHu, 16-03-12 12:03:44
- *
- *  生成一个32位随机的字符串
- *
- *      eg : 965DD1C9-7C75-466F-9D3B-681F96440A57
- *
- *  @return NSString
- *
- *  @since v1.0
+ OperationQueue中最大并行的线程数，默认是1
  */
-+ (NSString *)generateUniqueIdentifier;
+@property (assign, nonatomic) NSUInteger maxConcurrentOperationCount;
 
 @end
 
@@ -111,7 +103,7 @@
  *  @since 1.0
  */
 extern NSString *const AUURecordDidChangedNotification;
-
+extern NSString *const AUUFetchAllRecordsNotification;
 
 
 

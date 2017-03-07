@@ -17,8 +17,6 @@
 @property (nonatomic, assign) BOOL e_synced;
 @property (nullable, nonatomic, retain) NSString *e_id;
 
-- (void)assignToEntity:(PWDExtraInfoEntity * _Nonnull)entity withManagedObjectContext:(NSManagedObjectContext * _Nonnull)managedObjectContext;
-
 + (nonnull id)generate;
 
 @end

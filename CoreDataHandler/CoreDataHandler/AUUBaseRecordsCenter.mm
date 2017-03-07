@@ -9,6 +9,7 @@
 #import "AUUBaseRecordsCenter.h"
 #import "AUUBaseHandleOperation.h"
 #import <deque>
+#import "AUUMacros.h"
 
 using namespace std;
 typedef deque<BOOL> FlagQueue;
@@ -53,6 +54,7 @@ typedef deque<BOOL> FlagQueue;
     {
         // 初始化状态队列
         self.mFlagQueue = new FlagQueue();
+        self.maxConcurrentOperationCount = 1;
     }
     
     return self;
@@ -161,10 +163,10 @@ typedef deque<BOOL> FlagQueue;
     
     [self.auu_managedObjectContext mergeChangesFromContextDidSaveNotification:notify];
     
+    self.auu_lastModifiedDate = [NSDate date];
+    
     if (self.mFlagQueue -> front())
     {
-        self.auu_lastModifiedDate = [NSDate date];
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:AUURecordDidChangedNotification
                                                             object:nil];
         
@@ -203,7 +205,7 @@ typedef deque<BOOL> FlagQueue;
     {
         _operationQueue = [[NSOperationQueue alloc] init];
         
-        [_operationQueue setMaxConcurrentOperationCount:1];
+        [_operationQueue setMaxConcurrentOperationCount:self.maxConcurrentOperationCount];
     }
     
     return _operationQueue;
@@ -214,6 +216,16 @@ typedef deque<BOOL> FlagQueue;
     return self.auu_lastModifiedDate;
 }
 
+- (void)setMaxConcurrentOperationCount:(NSUInteger)maxConcurrentOperationCount
+{
+    if (maxConcurrentOperationCount > 0)
+    {
+        _maxConcurrentOperationCount = maxConcurrentOperationCount;
+        
+        [self.operationQueue setMaxConcurrentOperationCount:maxConcurrentOperationCount];
+    }
+}
+
 #pragma mark - Help methods
 
 - (NSURL *)applicationDocumentsDirectory
@@ -222,19 +234,11 @@ typedef deque<BOOL> FlagQueue;
                                                    inDomains:NSUserDomainMask] lastObject];
 }
 
-+ (NSString *)generateUniqueIdentifier
-{
-    CFUUIDRef uniqueIdentifier = CFUUIDCreate(NULL);
-    CFStringRef uniqueIdentifierString = CFUUIDCreateString(NULL, uniqueIdentifier);
-    CFRelease(uniqueIdentifier);
-    return CFBridgingRelease(uniqueIdentifierString);
-}
-
 @end
 
 
 NSString *const AUURecordDidChangedNotification = @"AUURecordDidChangedNotification";
-
+NSString *const AUUFetchAllRecordsNotification = @"AUUFetchAllRecordsNotification";
 
 
 

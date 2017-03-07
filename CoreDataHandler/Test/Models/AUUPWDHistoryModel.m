@@ -7,27 +7,42 @@
 //
 
 #import "AUUPWDHistoryModel.h"
+#import "NSObject+AUUHelper.h"
 
 @implementation AUUPWDHistoryModel
-
-- (void)assignToEntity:(PWDHistoryEntity *)entity withManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
-{
-    entity.h_id = self.h_id;
-    entity.h_pwd = self.h_pwd;
-    entity.h_date = self.h_date;
-    entity.h_synced = @(self.h_synced);
-}
 
 + (id)generate
 {
     AUUPWDHistoryModel *model = [[AUUPWDHistoryModel alloc] init];
     
-    model.h_id = [AUUBaseRecordsCenter generateUniqueIdentifier];
-    model.h_pwd = [AUUBaseRecordsCenter generateUniqueIdentifier];
+    model.h_id = [AUUBaseRecordsCenter generateUUIDString];
+    model.h_pwd = [AUUBaseRecordsCenter generateUUIDString];
     model.h_date = [[NSDate date] dateByAddingTimeInterval:-1 * arc4random_uniform(1000000)];
     model.h_synced = arc4random_uniform(2);
     
     return model;
+}
+
+- (NSString *)primaryKey
+{
+    return @"h_id";
+}
+
+- (Class)mapEntityClass
+{
+    return [PWDHistoryEntity class];
+}
+
+- (NSString *)description
+{
+    NSMutableString *desc = [[NSMutableString alloc] init];
+    
+    [desc appendFormat:@"h_id : %@\n", self.h_id];
+    [desc appendFormat:@"h_pwd : %@\n", self.h_pwd];
+    [desc appendFormat:@"h_date : %@\n", self.h_date];
+    [desc appendFormat:@"h_synced : %@\n", @(self.h_synced)];
+    
+    return desc;
 }
 
 @end

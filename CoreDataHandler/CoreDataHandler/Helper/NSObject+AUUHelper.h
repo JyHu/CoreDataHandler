@@ -7,51 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NSString+AUUHelper.h"
-#import "AUUMacros.h"
-
-typedef NS_ENUM(NSUInteger, AUUFindoutType) {
-    AUUFindoutTypeSet,
-    AUUFindoutTypeEntity
-};
+#import <objc/runtime.h>
 
 @interface NSObject (AUUHelper)
 
 /**
- *  @author JyHu, 16-03-11 17:03:07
- *
- *  根据查找类型查找property的属性名称（propertyAttributeName）
- *
- *  @param type AUUFindoutType
- *
- *  eg：
- *      @property (retain, nonatomic) NSString *username;
- *      根据查找结果会返回 username
- *
- *
- *  @return 查找到的propertyAttributeName
- *
- *  @since v1.0
+ 根据property_t，取出数据类型
+ 
+ @param property_t property_t
+ @return 数据类型，如NSArray， B， I， NSSet 等
  */
-- (NSString *)findoutPropertyAttributeNameWithFindType:(AUUFindoutType)type;
-
-/**
- *  @author JyHu, 16-03-11 17:03:28
- *
- *  根据属性名查找属性类型名
- *
- *  @param name 属性名称
- *
- *  eg：
- *      @property (retain, nonatomic) NSString *username;
- *      查询的时候，根据username查找它的数据类型，即NSString
- *
- *  @return 属性的类型名
- *
- *  @since v1.0
- */
-- (NSString *)findoutAttributeTypeNameWithAttributeName:(NSString *)name;
-
+- (NSString *)attributeTypeOfProperty_t:(objc_property_t)property_t;
 
 /**
  将model转换成对应的entity
@@ -60,28 +26,36 @@ typedef NS_ENUM(NSUInteger, AUUFindoutType) {
 
  @return 返回转换后的entity
  */
-- (id)assignToEntityWithClass:(Class)cls;
+- (id)assignToEntity:(NSManagedObject *)entity managedObjectContext:(NSManagedObjectContext *)managedObjectContext
+                        primaryKeyGenerateBlock:(AUUPrimeValueGenerateBlock)generateBlock;
 
 /**
- *  @author JyHu, 16-03-11 17:03:22
+ *  @author JyHu, 16-03-12 12:03:44
  *
- *  是否包含有某个属性
+ *  生成一个32位随机的字符串
  *
- *  @param attribtue 要判断的属性
+ *      eg : 965DD1C9-7C75-466F-9D3B-681F96440A57
  *
- *  @return BOOL
+ *  @return NSString
  *
  *  @since v1.0
  */
-+ (BOOL)whetherContainsAttribute:(NSString *)attribtue;
+- (NSString *)generateUUIDString;
+
+#pragma mark - 由所有model子类实现的方法
 
 /**
- *  @author JyHu, 16-03-12 18:03:32
- *
- *  调试输出所有属性
- *
- *  @since v1.0
+ 所对应的Entity实体类的class
+
+ @return Class
  */
-+ (void)debugLogAttributes;
+- (Class)mapEntityClass;
+
+/**
+ 主键名
+
+ @return NSString
+ */
+- (NSString *)primaryKey;
 
 @end

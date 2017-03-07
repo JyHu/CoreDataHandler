@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "AUUMacros.h"
 
 /**
  *  @author JyHu, 16-03-10 23:03:27

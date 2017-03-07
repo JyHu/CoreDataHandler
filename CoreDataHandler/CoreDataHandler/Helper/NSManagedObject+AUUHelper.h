@@ -7,7 +7,6 @@
 //
 
 #import <CoreData/CoreData.h>
-#import "NSObject+AUUHelper.h"
 
 @interface NSManagedObject (AUUHelper)
 
@@ -39,16 +38,40 @@
 - (id)assignToModel;
 
 /**
- *  @author JyHu, 16-03-11 13:03:32
- *
- *  相当于是半私有方法，在子类的.m文件中重写 assignToModel 方法的时候使用
- *
- *  @param cls 目标model的class类型
- *
- *  @return 填充完数据的model
- *
- *  @since v1.0
+ Entity对应的Model的class
+
+ @return Class
  */
-- (id)assignToModelWithClass:(Class)cls;
+- (Class)mapModelClass;
 
 @end
+
+
+
+/*
+ 
+ property           attribute type
+ 
+ t_int16            T@"NSNumber",&,D,N
+ t_int32            T@"NSNumber",&,D,N
+ t_int64            T@"NSNumber",&,D,N
+ t_decimal          T@"NSDecimalNumber",&,D,N
+ t_double           T@"NSNumber",&,D,N
+ t_float            T@"NSNumber",&,D,N
+ t_string           T@"NSString",&,D,N
+ t_bool             T@"NSNumber",&,D,N
+ t_date             T@"NSDate",&,D,N
+ t_binary           T@"NSData",&,D,N
+ t_transformable    T@,&,D,N
+ password_ship      T@"PWDDetailEntity",&,D,N
+ history_ship       T@"PWDHistoryEntity",&,D,N
+ 
+ */
+
+// 在CoreData中得Entity所有的OC类型的数据类型只有以下几个
+//NSArray *coredataOriginalAttribtues = @[@"NSNumber",
+//                                        @"NSDecimalNumber",
+//                                        @"NSString",
+//                                        @"NSDate",
+//                                        @"NSData",
+//                                        @"NSSet"];
