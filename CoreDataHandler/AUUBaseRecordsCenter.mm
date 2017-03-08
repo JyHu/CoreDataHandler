@@ -55,15 +55,12 @@ typedef deque<BOOL> FlagQueue;
         // 初始化状态队列
         self.mFlagQueue = new FlagQueue();
         self.maxConcurrentOperationCount = 1;
-        [self initlization];
+        if ([self respondsToSelector:@selector(initlization)]) {
+            [self initlization];
+        }
     }
     
     return self;
-}
-
-- (void)initlization
-{
-    
 }
 
 #pragma mark - Core data handler

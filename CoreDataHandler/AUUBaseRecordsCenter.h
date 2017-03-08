@@ -9,9 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@protocol AUUInitlizationDelegate <NSObject>
+
+/**
+ 留给外部的一些初始化操作
+ */
+- (void)initlization;
+
+@end
+
 @class AUUBaseHandleOperation;
 
-@interface AUUBaseRecordsCenter : NSObject <NSFetchedResultsControllerDelegate>
+@interface AUUBaseRecordsCenter : NSObject <NSFetchedResultsControllerDelegate, AUUInitlizationDelegate>
 
 /**
  *  @author JyHu, 16-03-10 23:03:11
@@ -23,11 +32,6 @@
  *  @since 1.0
  */
 + (AUUBaseRecordsCenter *)shareCenter;
-
-/**
- 留给外部的一些初始化操作
- */
-- (void)initlization;
 
 /**
  *  @author JyHu, 16-03-10 23:03:55
