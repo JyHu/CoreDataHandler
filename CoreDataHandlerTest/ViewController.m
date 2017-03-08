@@ -36,6 +36,11 @@
     
     [AUUBaseRecordsCenter shareCenter].sqliteName = @"PasswordsData";
     
+    [self test];
+}
+
+- (void)test
+{
     AUUPWDGroupModel *groupModel = [AUUPWDGroupModel generate];
     
     [[AUUBaseRecordsCenter shareCenter] fetchAllGroup];
@@ -46,15 +51,19 @@
     
     [[AUUBaseRecordsCenter shareCenter] fetchAllGroup];
     
-//    [[AUUBaseRecordsCenter shareCenter] fetchAllDetails];
-//    
-//    [[AUUBaseRecordsCenter shareCenter] cleanupGroup];
-//    
-//    [[AUUBaseRecordsCenter shareCenter] fetchAllGroup];
-//    
-//    [[AUUBaseRecordsCenter shareCenter] fetchAllDetails];
-//    
-//    [[AUUBaseRecordsCenter shareCenter] cleanupDetails];
+    [[AUUBaseRecordsCenter shareCenter] fetchAllDetails];
+    
+    [[AUUBaseRecordsCenter shareCenter] cleanupGroup];
+    
+    [[AUUBaseRecordsCenter shareCenter] fetchAllGroup];
+    
+    [[AUUBaseRecordsCenter shareCenter] fetchAllDetails];
+    
+    [[AUUBaseRecordsCenter shareCenter] cleanupDetails];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self test];
+    });
 }
 
 - (void)didReceiveMemoryWarning {

@@ -55,6 +55,8 @@
 		1C10CF511E6E83F6000B3860 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C10CF4E1E6E83E9000B3860 /* CoreData.framework */; };
 		1C10CF901E6E9712000B3860 /* AUUDeleteOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C10CF8E1E6E9712000B3860 /* AUUDeleteOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C10CF911E6E9712000B3860 /* AUUDeleteOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CF8F1E6E9712000B3860 /* AUUDeleteOperation.m */; };
+		1C10CFA21E6FB3DB000B3860 /* AUUGroupInsertUpdateOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CFA11E6FB3DB000B3860 /* AUUGroupInsertUpdateOperation.m */; };
+		1C10CFA51E6FCF94000B3860 /* AUUFetchAllGroupOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C10CFA41E6FCF94000B3860 /* AUUFetchAllGroupOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +141,10 @@
 		1C10CF8E1E6E9712000B3860 /* AUUDeleteOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUUDeleteOperation.h; sourceTree = "<group>"; };
 		1C10CF8F1E6E9712000B3860 /* AUUDeleteOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUUDeleteOperation.m; sourceTree = "<group>"; };
 		1C10CF921E6EC99D000B3860 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		1C10CFA01E6FB3DB000B3860 /* AUUGroupInsertUpdateOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUUGroupInsertUpdateOperation.h; sourceTree = "<group>"; };
+		1C10CFA11E6FB3DB000B3860 /* AUUGroupInsertUpdateOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUUGroupInsertUpdateOperation.m; sourceTree = "<group>"; };
+		1C10CFA31E6FCF94000B3860 /* AUUFetchAllGroupOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUUFetchAllGroupOperation.h; sourceTree = "<group>"; };
+		1C10CFA41E6FCF94000B3860 /* AUUFetchAllGroupOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUUFetchAllGroupOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +282,10 @@
 			children = (
 				1C10CF181E6E83CD000B3860 /* AUUBaseRecordsCenter+Test.h */,
 				1C10CF191E6E83CD000B3860 /* AUUBaseRecordsCenter+Test.m */,
+				1C10CFA01E6FB3DB000B3860 /* AUUGroupInsertUpdateOperation.h */,
+				1C10CFA11E6FB3DB000B3860 /* AUUGroupInsertUpdateOperation.m */,
+				1C10CFA31E6FCF94000B3860 /* AUUFetchAllGroupOperation.h */,
+				1C10CFA41E6FCF94000B3860 /* AUUFetchAllGroupOperation.m */,
 				1C10CF1A1E6E83CD000B3860 /* Entities */,
 				1C10CF2F1E6E83CD000B3860 /* Models */,
 				1C10CF3A1E6E83CD000B3860 /* PasswordsData.xcdatamodeld */,
@@ -515,8 +525,10 @@
 			files = (
 				1C10CF4A1E6E83CD000B3860 /* AUUPWDHistoryModel.m in Sources */,
 				1C10CF161E6E83C5000B3860 /* ViewController.m in Sources */,
+				1C10CFA51E6FCF94000B3860 /* AUUFetchAllGroupOperation.m in Sources */,
 				1C10CF4C1E6E83CD000B3860 /* PasswordsData.xcdatamodeld in Sources */,
 				1C10CF051E6E8395000B3860 /* AppDelegate.m in Sources */,
+				1C10CFA21E6FB3DB000B3860 /* AUUGroupInsertUpdateOperation.m in Sources */,
 				1C10CF431E6E83CD000B3860 /* PWDHistoryEntity+CoreDataProperties.m in Sources */,
 				1C10CF421E6E83CD000B3860 /* PWDGroupEntity.m in Sources */,
 				1C10CF3D1E6E83CD000B3860 /* PWDDetailEntity+CoreDataProperties.m in Sources */,

@@ -39,15 +39,6 @@
  */
 @property (copy, nonatomic) void (^completion)(BOOL successed);
 
-/**
- *  @author JyHu, 16-03-11 17:03:20
- *
- *  用来对查询到的数据排序的key
- *
- *  @since v1.0
- */
-@property (retain, nonatomic) NSString *sortedKey;
-
 @end
 
 @implementation AUUInsertOrUpdateOperation
@@ -192,8 +183,12 @@
     
     AUUDebugBeginWithInfo(@"插入或更新实体类%@数据的线程开始", [[self.recordsToUpdate firstObject] mapEntityClass]);
     
+    BOOL exitStatus = NO;
+    
+    // 只有当前要插入或更新的有数据的时候才去更新与插入，否则没必要，可以直接退出
     if (self.recordsToUpdate && self.recordsToUpdate.count > 0)
     {
+        // 初始化coredata数据的查询操作
         if ([self initVariableWithEntityClass:[[self.recordsToUpdate firstObject] mapEntityClass] sortedKey:self.sortedKey])
         {
             [self fetchedResultsController];
@@ -207,14 +202,39 @@
             });
         }
         
+        if ([self respondsToSelector:@selector(asyncHandleWithExitStatus:error:)]) {
+            [self asyncHandleWithExitStatus:&exitStatus error:nil];
+        } else if ([self respondsToSelector:@selector(asyncHandleWithEntities:exitStatus:insertOrUpdateError:)]) {
+            [self asyncHandleWithEntities:self.insertOrUpdateObjectsArray exitStatus:&exitStatus insertOrUpdateError:nil];
+        } else {
+            exitStatus = YES;
+        }
+        
         AUUDebugFinishWithInfo(@"插入或更新实体类%@数据的线程成功结束", [[self.recordsToUpdate firstObject] mapEntityClass]);
     }
     else
     {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.completion(YES);
-        });
+        if (self.completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.completion(YES);
+            });
+        }
+        
+        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{@"errorInfo" : @"没有要插入的数据"}];
+        
+        if ([self respondsToSelector:@selector(asyncHandleWithExitStatus:error:)]) {
+            [self asyncHandleWithExitStatus:&exitStatus error:error];
+        } else if ([self respondsToSelector:@selector(asyncHandleWithEntities:exitStatus:insertOrUpdateError:)]) {
+            [self asyncHandleWithEntities:self.insertOrUpdateObjectsArray exitStatus:&exitStatus insertOrUpdateError:error];
+        } else {
+            exitStatus = YES;
+        }
+        
         AUUDebugFinishWithInfo(@"插入或更新实体类%@数据的线程结束，因为没有数据", [[self.recordsToUpdate firstObject] mapEntityClass]);
+    }
+    
+    while (!exitStatus) {
+        [[NSRunLoop currentRunLoop] runMode:NSRunLoopCommonModes beforeDate:[NSDate distantFuture]];
     }
 }
 

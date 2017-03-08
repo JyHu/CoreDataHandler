@@ -41,6 +41,15 @@ typedef id (^AUUPrimeValueGenerateBlock)(id primeKey, NSManagedObject *managedOb
 - (instancetype)initWithSharedPSC:(NSPersistentStoreCoordinator *)psc SortKey:(NSString *)sortKey;
 
 /**
+ *  @author JyHu, 16-03-11 17:03:20
+ *
+ *  用来对查询到的数据排序的key
+ *
+ *  @since v1.0
+ */
+@property (retain, nonatomic) NSString *sortedKey;
+
+/**
  插入或更新数据到coredata
 
  @param model 要插入的数据， models 一系列数据
@@ -50,6 +59,16 @@ typedef id (^AUUPrimeValueGenerateBlock)(id primeKey, NSManagedObject *managedOb
 - (void)insertOrUpdateObjects:(NSArray *)models completion:(void (^)(BOOL successed))completion;
 - (void)insertOrUpdateObjects:(NSArray *)models;
 - (void)insertOrUpdateObject:(id)model;
+
+
+/**
+ 异步线程的操作，留给子类实现的
+
+ @param entities 当前插入的model所对应的coredata中的entity
+ @param exitStatus 控制线程退出的状态
+ @param error 错误信息
+ */
+- (void)asyncHandleWithEntities:(NSArray *)entities exitStatus:(BOOL *)exitStatus insertOrUpdateError:(NSError *)error;
 
 #pragma mark - 
 #pragma mark - 以下的参数是非必须按的参数，是为了保持数据的唯一性，用于数据更新用

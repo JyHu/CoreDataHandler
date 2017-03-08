@@ -23,4 +23,13 @@
 - (void)deleteobjectWithModels:(NSArray *)models forEntityClass:(Class)cls primaryKey:(NSString *)priKey completion:(void (^)(BOOL successed))completion;
 
 
+/**
+ 删除数据时的异步操作
+
+ @param models 当前要删除的数据
+ @param exitStatus 控制线程退出的状态
+ @param error 错误信息
+ */
+- (void)asyncHandleWithModels:(NSArray *)models exitStatus:(BOOL *)exitStatus deleteError:(NSError *)error;
+
 @end

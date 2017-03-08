@@ -110,6 +110,8 @@
 {
     AUUDebugBeginWithInfo(@"删除实体类%@数据的线程开始", self.entityClass);
     
+    BOOL exitStatus = NO;
+    
     if (self.deletedModelsArr && [self.deletedModelsArr isKindOfClass:[NSArray class]] && self.deletedModelsArr.count > 0)
     {
         Class cls = self.entityClass ?: [[self.deletedModelsArr firstObject] mapEntityClass];
@@ -124,6 +126,30 @@
             
             [self saveChangesWithFlag:YES];
         }
+        
+        if ([self respondsToSelector:@selector(asyncHandleWithModels:exitStatus:deleteError:)]) {
+            [self asyncHandleWithModels:self.deletedModelsArr exitStatus:&exitStatus deleteError:nil];
+        } else if ([self respondsToSelector:@selector(asyncHandleWithExitStatus:error:)]) {
+            [self asyncHandleWithExitStatus:&exitStatus error:nil];
+        } else {
+            exitStatus = YES;
+        }
+    }
+    else
+    {
+        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{@"errorInfo" : @"初始化查询失败，请检查一下sortedKey和entityClass是否有效"}];
+        
+        if ([self respondsToSelector:@selector(asyncHandleWithModels:exitStatus:deleteError:)]) {
+            [self asyncHandleWithModels:self.deletedModelsArr exitStatus:&exitStatus deleteError:error];
+        } else if ([self respondsToSelector:@selector(asyncHandleWithExitStatus:error:)]) {
+            [self asyncHandleWithExitStatus:&exitStatus error:error];
+        } else {
+            exitStatus = YES;
+        }
+    }
+    
+    while (!exitStatus) {
+        [[NSRunLoop currentRunLoop] runMode:NSRunLoopCommonModes beforeDate:[NSDate distantFuture]];
     }
     
     if (self.completion)

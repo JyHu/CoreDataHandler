@@ -35,6 +35,13 @@
 - (void)fetchAllWithEnityClass:(Class)cls sortedKey:(NSString *)skey;
 
 
+/**
+ 异步操作
 
+ @param entities 获取到的所有的entity
+ @param exitStatus 线程是否要退出
+ @param error 错误
+ */
+- (void)asyncHandleWithEntities:(NSArray *)entities exitStatus:(BOOL *)exitStatus fetchError:(NSError *)error;
 
 @end

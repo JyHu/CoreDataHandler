@@ -64,4 +64,15 @@
  */
 - (BOOL)initVariableWithEntityClass:(Class)cls sortedKey:(NSString *)key;
 
+
+/**
+ 在operation中做一些异步的操作，这个方法需要在子类中去实现，如果不需要在coredata操作的时候去做一些异步的操作的话，可以不实现这个方法
+ 这个操作是跟当前所在的operation同一条异步线程
+
+ @param exitStatus BOOL指针，如果设置为yes，就会退出线程
+ @param error 操作中出现的错误
+ */
+- (void)asyncHandleWithExitStatus:(BOOL *)exitStatus error:(NSError *)error;
+
+
 @end
