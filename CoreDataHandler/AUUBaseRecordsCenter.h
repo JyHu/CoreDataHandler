@@ -25,6 +25,11 @@
 + (AUUBaseRecordsCenter *)shareCenter;
 
 /**
+ 留给外部的一些初始化操作
+ */
+- (void)initlization;
+
+/**
  *  @author JyHu, 16-03-10 23:03:55
  *
  *  设置Coredata存储时的sqlite的名字
