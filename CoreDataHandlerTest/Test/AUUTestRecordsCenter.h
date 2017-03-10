@@ -1,16 +1,18 @@
 //
-//  AUUBaseRecordsCenter+Test.h
-//  CoreDataHandler
+//  AUUTestRecordsCenter.h
+//  CoreDataOperate
 //
-//  Created by 胡金友 on 16/3/11.
-//  Copyright © 2016年 胡金友. All rights reserved.
+//  Created by JyHu on 2017/3/10.
+//
 //
 
-#import "AUUBaseRecordsCenter.h"
+#import <CoreDataHandler/CoreDataHandler.h>
 
 @class AUUPWDGroupModel;
 
-@interface AUUBaseRecordsCenter (Test)
+@interface AUUTestRecordsCenter : AUUBaseRecordsCenter
+
++ (instancetype)shareInstance;
 
 /**
  *  @author JyHu, 16-03-12 22:03:46

@@ -9,29 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@protocol AUUInitlizationDelegate <NSObject>
-
-/**
- 留给外部的一些初始化操作
- */
-- (void)initlization;
-
-@end
-
 @class AUUBaseHandleOperation;
 
-@interface AUUBaseRecordsCenter : NSObject <NSFetchedResultsControllerDelegate, AUUInitlizationDelegate>
-
-/**
- *  @author JyHu, 16-03-10 23:03:11
- *
- *  单利类，返回一个Coredata的管理中心
- *
- *  @return self
- *
- *  @since 1.0
- */
-+ (AUUBaseRecordsCenter *)shareCenter;
+@interface AUUBaseRecordsCenter : NSObject <NSFetchedResultsControllerDelegate>
 
 /**
  *  @author JyHu, 16-03-10 23:03:55
@@ -79,6 +59,11 @@
  *  @since 1.0
  */
 @property (strong, nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+/**
+ 获取当前的线程池
+ */
+@property (strong, nonatomic, readonly) NSOperationQueue *operationQueue;
 
 /**
  *  @author JyHu, 16-03-10 23:03:43

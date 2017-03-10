@@ -42,7 +42,7 @@
 {
     AUUDebugBeginWithInfo(@"查询实体类%@所有数据的线程开始",NSStringFromClass(self.entityClass));
     
-    BOOL exitStatus = NO;
+    
     
     // 初始化coredata数据的查询操作
     if ([self initVariableWithEntityClass:self.entityClass sortedKey:self.sortedKey])
@@ -62,33 +62,36 @@
             });
         }
         
-        if ([self respondsToSelector:@selector(asyncHandleWithExitStatus:error:)]) {
-            [self asyncHandleWithExitStatus:&exitStatus error:nil];
-        } else if ([self respondsToSelector:@selector(asyncHandleWithEntities:exitStatus:fetchError:)]) {
-            [self asyncHandleWithEntities:self.entities exitStatus:&exitStatus fetchError:nil];
-        } else {
-            exitStatus = YES;
-        }
+        [self asyncBlockWithError:nil];
     }
     else
     {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{@"errorInfo" : @"初始化查询失败，请检查一下sortedKey和entityClass是否有效"}];
         
-        if ([self respondsToSelector:@selector(asyncHandleWithExitStatus:error:)]) {
-            [self asyncHandleWithExitStatus:&exitStatus error:error];
-        } else if ([self respondsToSelector:@selector(asyncHandleWithEntities:exitStatus:fetchError:)]) {
-            [self asyncHandleWithEntities:self.entities exitStatus:&exitStatus fetchError:error];
-        } else {
-            exitStatus = YES;
-        }
+        [self asyncBlockWithError:error];
+    }
+    
+
+    
+    AUUDebugFinishWithInfo(@"查询实体类%@所有数据的线程结束", NSStringFromClass(self.entityClass));
+}
+
+- (void)asyncBlockWithError:(NSError *)error
+{
+    BOOL exitStatus = NO;
+    
+    if ([self respondsToSelector:@selector(asyncHandleWithExitStatus:error:)]) {
+        [self asyncHandleWithExitStatus:&exitStatus error:error];
+    } else if ([self respondsToSelector:@selector(asyncHandleWithEntities:exitStatus:fetchError:)]) {
+        [self asyncHandleWithEntities:self.entities exitStatus:&exitStatus fetchError:error];
+    } else {
+        exitStatus = YES;
     }
     
     while (!exitStatus)
     {
         [[NSRunLoop currentRunLoop] runMode:NSRunLoopCommonModes beforeDate:[NSDate distantFuture]];
     }
-    
-    AUUDebugFinishWithInfo(@"查询实体类%@所有数据的线程结束", NSStringFromClass(self.entityClass));
 }
 
 @end

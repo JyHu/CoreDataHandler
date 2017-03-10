@@ -68,7 +68,7 @@ typedef id (^AUUPrimeValueGenerateBlock)(id primeKey, NSManagedObject *managedOb
  @param exitStatus 控制线程退出的状态
  @param error 错误信息
  */
-- (void)asyncHandleWithEntities:(NSArray *)entities exitStatus:(BOOL *)exitStatus insertOrUpdateError:(NSError *)error;
+- (void)asyncHandleWithEntities:(NSMutableArray *)entities exitStatus:(BOOL *)exitStatus insertOrUpdateError:(NSError *)error;
 
 #pragma mark - 
 #pragma mark - 以下的参数是非必须按的参数，是为了保持数据的唯一性，用于数据更新用

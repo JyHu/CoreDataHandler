@@ -1,12 +1,12 @@
 //
-//  AUUBaseRecordsCenter+Test.m
-//  CoreDataHandler
+//  AUUTestRecordsCenter.m
+//  CoreDataOperate
 //
-//  Created by 胡金友 on 16/3/11.
-//  Copyright © 2016年 胡金友. All rights reserved.
+//  Created by JyHu on 2017/3/10.
+//
 //
 
-#import "AUUBaseRecordsCenter+Test.h"
+#import "AUUTestRecordsCenter.h"
 #import "NSObject+AUUHelper.h"
 
 #import "AUUPWDGroupModel.h"
@@ -26,7 +26,17 @@
 
 #import "NSManagedObject+AUUHelper.h"
 
-@implementation AUUBaseRecordsCenter (Test)
+@implementation AUUTestRecordsCenter
+
++ (instancetype)shareInstance
+{
+    static AUUTestRecordsCenter *recordsCenter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        recordsCenter = [[AUUTestRecordsCenter alloc] init];
+    });
+    return recordsCenter;
+}
 
 - (void)insertGroup:(AUUPWDGroupModel *)groupModel
 {
@@ -41,25 +51,25 @@
     [operation fetchAllGroupsWithCompletion:^(NSArray *entities) {
         NSLog(@"%@", entities);
     }];
-//    AUUFetchAllOperation *operation = [[AUUFetchAllOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
-//    [operation fetchAllWithEnityClass:[PWDGroupEntity class] sortedKey:@"g_id" fetchedEntities:^(NSArray *entities) {
-//        NSLog(@"%@", [[entities firstObject] description]);
-//        
-//        AUUPWDGroupModel *groupModel = [[entities firstObject] assignToModel];
-//        
-//        for (AUUPWDDetailModel *detailModel in groupModel.passwords_ship)
-//        {
-//            NSLog(@"%@ %@", NSStringFromClass([detailModel class]), detailModel);
-//        }
-//        
-//        AUUDeleteOperation *deleteOperation = [[AUUDeleteOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
-//        [deleteOperation deleteobjectWithModel:groupModel completion:^(BOOL successed) {
-//            NSLog(@"delete object %@", successed ? @"yes" : @"no");
-//        }];
-//        [[AUUBaseRecordsCenter shareCenter] enQueueRecordOperation:deleteOperation];
-//        
-//        NSLog(@"----");
-//    }];
+    //    AUUFetchAllOperation *operation = [[AUUFetchAllOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
+    //    [operation fetchAllWithEnityClass:[PWDGroupEntity class] sortedKey:@"g_id" fetchedEntities:^(NSArray *entities) {
+    //        NSLog(@"%@", [[entities firstObject] description]);
+    //
+    //        AUUPWDGroupModel *groupModel = [[entities firstObject] assignToModel];
+    //
+    //        for (AUUPWDDetailModel *detailModel in groupModel.passwords_ship)
+    //        {
+    //            NSLog(@"%@ %@", NSStringFromClass([detailModel class]), detailModel);
+    //        }
+    //
+    //        AUUDeleteOperation *deleteOperation = [[AUUDeleteOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
+    //        [deleteOperation deleteobjectWithModel:groupModel completion:^(BOOL successed) {
+    //            NSLog(@"delete object %@", successed ? @"yes" : @"no");
+    //        }];
+    //        [[AUUBaseRecordsCenter shareCenter] enQueueRecordOperation:deleteOperation];
+    //
+    //        NSLog(@"----");
+    //    }];
     [self enQueueRecordOperation:operation];
 }
 
@@ -88,5 +98,6 @@
     }];
     [self enQueueRecordOperation:operation];
 }
+
 
 @end

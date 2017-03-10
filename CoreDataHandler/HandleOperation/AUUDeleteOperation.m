@@ -110,56 +110,53 @@
 {
     AUUDebugBeginWithInfo(@"删除实体类%@数据的线程开始", self.entityClass);
     
-    BOOL exitStatus = NO;
+    
     
     if (self.deletedModelsArr && [self.deletedModelsArr isKindOfClass:[NSArray class]] && self.deletedModelsArr.count > 0)
     {
         Class cls = self.entityClass ?: [[self.deletedModelsArr firstObject] mapEntityClass];
-        
         self.primaryKey = self.primaryKey ?: [[self.deletedModelsArr firstObject] primaryKey];
-        
         if ([self initVariableWithEntityClass:cls sortedKey:self.primaryKey])
         {
             [self fetchedResultsController];
-            
+            [self asyncBlockWithError:nil];
             [self deleteObjects];
-            
             [self saveChangesWithFlag:YES];
-        }
-        
-        if ([self respondsToSelector:@selector(asyncHandleWithModels:exitStatus:deleteError:)]) {
-            [self asyncHandleWithModels:self.deletedModelsArr exitStatus:&exitStatus deleteError:nil];
-        } else if ([self respondsToSelector:@selector(asyncHandleWithExitStatus:error:)]) {
-            [self asyncHandleWithExitStatus:&exitStatus error:nil];
-        } else {
-            exitStatus = YES;
         }
     }
     else
     {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{@"errorInfo" : @"初始化查询失败，请检查一下sortedKey和entityClass是否有效"}];
         
-        if ([self respondsToSelector:@selector(asyncHandleWithModels:exitStatus:deleteError:)]) {
-            [self asyncHandleWithModels:self.deletedModelsArr exitStatus:&exitStatus deleteError:error];
-        } else if ([self respondsToSelector:@selector(asyncHandleWithExitStatus:error:)]) {
-            [self asyncHandleWithExitStatus:&exitStatus error:error];
-        } else {
-            exitStatus = YES;
-        }
+        [self asyncBlockWithError:error];
     }
     
-    while (!exitStatus) {
-        [[NSRunLoop currentRunLoop] runMode:NSRunLoopCommonModes beforeDate:[NSDate distantFuture]];
-    }
+
     
-    if (self.completion)
-    {
+    if (self.completion) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.completion(YES);
         });
     }
     
     AUUDebugFinishWithInfo(@"删除实体类%@数据的线程结束", self.entityClass);
+}
+
+- (void)asyncBlockWithError:(NSError *)error
+{
+    BOOL exitStatus = NO;
+    
+    if ([self respondsToSelector:@selector(asyncHandleWithModels:exitStatus:deleteError:)]) {
+        [self asyncHandleWithModels:self.deletedModelsArr exitStatus:&exitStatus deleteError:nil];
+    } else if ([self respondsToSelector:@selector(asyncHandleWithExitStatus:error:)]) {
+        [self asyncHandleWithExitStatus:&exitStatus error:nil];
+    } else {
+        exitStatus = YES;
+    }
+    
+    while (!exitStatus) {
+        [[NSRunLoop currentRunLoop] runMode:NSRunLoopCommonModes beforeDate:[NSDate distantFuture]];
+    }
 }
 
 @end

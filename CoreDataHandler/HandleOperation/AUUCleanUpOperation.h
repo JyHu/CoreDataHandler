@@ -32,4 +32,13 @@
                    completion:(void (^)(void))completion;
 - (void)cleanupWithEnityClass:(Class)cls sortedKey:(NSString *)skey;
 
+/**
+ 异步线程的操作，允许外部在清理之前做一些操作
+
+ @param entities 即将要清理掉的数据
+ @param exitStatus 是否退出外部异步线程
+ @param error 错误
+ */
+- (void)asyncHandleWithEntities:(NSMutableArray *)entities exitStatus:(BOOL *)exitStatus cleanUpError:(NSError *)error;
+
 @end

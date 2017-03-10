@@ -8,8 +8,8 @@
 
 #import "AUUBaseHandleOperation.h"
 #import "AUUBaseRecordsCenter.h"
-#import "NSObject+AUUHelper.h"
 #import "AUUMacros.h"
+#import <objc/runtime.h>
 
 
 @interface AUUBaseHandleOperation() <NSFetchedResultsControllerDelegate>
@@ -115,13 +115,13 @@
     
     if ([self.managedObjectContext hasChanges])
     {
-        [[AUUBaseRecordsCenter shareCenter] pushFlag2Queue:flag];
+        [self.baseRecordsCenter pushFlag2Queue:flag];
         
         if (![self.managedObjectContext save:&error])
         {
             AUUDebugLog(@"%@ 保存数据变动失败", NSStringFromClass([self class]));
             
-            [[AUUBaseRecordsCenter shareCenter] rollbackFlagQueue];
+            [self.baseRecordsCenter rollbackFlagQueue];
         }
         else
         {

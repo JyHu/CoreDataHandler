@@ -20,7 +20,7 @@ typedef deque<BOOL> FlagQueue;
 @property (nonatomic, strong, readonly) NSManagedObjectContext      *auu_managedObjectContext;
 @property (nonatomic, strong)           NSFetchedResultsController  *auu_fetchedResultsController;
 
-@property (nonatomic, strong)   NSOperationQueue    *operationQueue;
+@property (nonatomic, strong)   NSOperationQueue    *auu_operationQueue;
 @property (assign, atomic)      FlagQueue           *mFlagQueue;
 @property (retain, nonatomic)   NSDate              *auu_lastModifiedDate;
 
@@ -31,20 +31,11 @@ typedef deque<BOOL> FlagQueue;
 @synthesize auu_managedObjectModel          = _auu_managedObjectModel;
 @synthesize auu_managedObjectContext        = _auu_managedObjectContext;
 @synthesize auu_fetchedResultsController    = _auu_fetchedResultsController;
-@synthesize operationQueue                  = _operationQueue;
+@synthesize auu_operationQueue                  = _auu_operationQueue;
 @synthesize mFlagQueue                      = _mFlagQueue;
 @synthesize auu_lastModifiedDate            = _auu_lastModifiedDate;
 @synthesize persistentStoreCoordinator      = _persistentStoreCoordinator;
 
-+ (AUUBaseRecordsCenter *)shareCenter
-{
-    static AUUBaseRecordsCenter *center;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        center = [[AUUBaseRecordsCenter alloc] init];
-    });
-    return center;
-}
 
 - (id)init
 {
@@ -55,9 +46,6 @@ typedef deque<BOOL> FlagQueue;
         // 初始化状态队列
         self.mFlagQueue = new FlagQueue();
         self.maxConcurrentOperationCount = 1;
-        if ([self respondsToSelector:@selector(initlization)]) {
-            [self initlization];
-        }
     }
     
     return self;
@@ -72,7 +60,7 @@ typedef deque<BOOL> FlagQueue;
         return _auu_managedObjectContext;
     }
     
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    NSPersistentStoreCoordinator *coordinator = self.persistentStoreCoordinator;
     
     if (!coordinator)
     {
@@ -183,9 +171,11 @@ typedef deque<BOOL> FlagQueue;
 
 - (void)enQueueRecordOperation:(AUUBaseHandleOperation *)operation
 {
-    [self.operationQueue addOperation:operation];
+    operation.baseRecordsCenter = self;
     
-    AUUDebugLog(@"Current operation count %@", @([self.operationQueue operationCount]));
+    [self.auu_operationQueue addOperation:operation];
+    
+    AUUDebugLog(@"Current operation count %@", @([self.auu_operationQueue operationCount]));
 }
 
 - (void)setSqliteName:(NSString *)sqliteName
@@ -193,25 +183,21 @@ typedef deque<BOOL> FlagQueue;
     if (sqliteName && [sqliteName isKindOfClass:[NSString class]] && sqliteName.length > 0)
     {
         _sqliteName = sqliteName;
-        
-        [self operationQueue];
-        
-        [self auu_managedObjectContext];
     }
 }
 
 #pragma mark - Getter and Setter
 
-- (NSOperationQueue *)operationQueue
+- (NSOperationQueue *)auu_operationQueue
 {
-    if (!_operationQueue)
+    if (!_auu_operationQueue)
     {
-        _operationQueue = [[NSOperationQueue alloc] init];
+        _auu_operationQueue = [[NSOperationQueue alloc] init];
         
-        [_operationQueue setMaxConcurrentOperationCount:self.maxConcurrentOperationCount];
+        [_auu_operationQueue setMaxConcurrentOperationCount:self.maxConcurrentOperationCount];
     }
     
-    return _operationQueue;
+    return _auu_operationQueue;
 }
 
 - (NSDate *)lastModifiedDate
@@ -225,8 +211,13 @@ typedef deque<BOOL> FlagQueue;
     {
         _maxConcurrentOperationCount = maxConcurrentOperationCount;
         
-        [self.operationQueue setMaxConcurrentOperationCount:maxConcurrentOperationCount];
+        [self.auu_operationQueue setMaxConcurrentOperationCount:maxConcurrentOperationCount];
     }
+}
+
+- (NSOperationQueue *)operationQueue
+{
+    return self.auu_operationQueue;
 }
 
 #pragma mark - Help methods

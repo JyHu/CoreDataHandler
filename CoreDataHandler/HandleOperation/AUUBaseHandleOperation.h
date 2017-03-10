@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class AUUBaseRecordsCenter;
+
 /**
  *  @author JyHu, 16-03-10 23:03:27
  *
@@ -23,6 +25,8 @@
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController; // 管理查询到的数据
 
 @property (nonatomic, strong) NSFetchRequest *fetchRequest; // 获取数据的请求，相当于sql语句
+
+@property (weak, nonatomic) AUUBaseRecordsCenter *baseRecordsCenter;
 
 /**
  *  @author JyHu, 16-03-10 23:03:05

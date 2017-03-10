@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <CoreData/CoreData.h>
 #import <objc/runtime.h>
-#import "AUUBaseRecordsCenter+Test.h"
+#import "AUUTestRecordsCenter.h"
 #import "AUUInsertOrUpdateOperation.h"
 
 #import "PWDGroupEntity.h"
@@ -34,7 +34,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    [AUUBaseRecordsCenter shareCenter].sqliteName = @"PasswordsData";
+    [AUUTestRecordsCenter shareInstance].sqliteName = @"PasswordsData";
     
     [self test];
 }
@@ -43,23 +43,23 @@
 {
     AUUPWDGroupModel *groupModel = [AUUPWDGroupModel generate];
     
-    [[AUUBaseRecordsCenter shareCenter] fetchAllGroup];
+    [[AUUTestRecordsCenter shareInstance] fetchAllGroup];
     
-    [[AUUBaseRecordsCenter shareCenter] fetchAllDetails];
+    [[AUUTestRecordsCenter shareInstance] fetchAllDetails];
     
-    [[AUUBaseRecordsCenter shareCenter] insertGroup:groupModel];
+    [[AUUTestRecordsCenter shareInstance] insertGroup:groupModel];
     
-    [[AUUBaseRecordsCenter shareCenter] fetchAllGroup];
+    [[AUUTestRecordsCenter shareInstance] fetchAllGroup];
     
-    [[AUUBaseRecordsCenter shareCenter] fetchAllDetails];
+    [[AUUTestRecordsCenter shareInstance] fetchAllDetails];
     
-    [[AUUBaseRecordsCenter shareCenter] cleanupGroup];
+    [[AUUTestRecordsCenter shareInstance] cleanupGroup];
     
-    [[AUUBaseRecordsCenter shareCenter] fetchAllGroup];
+    [[AUUTestRecordsCenter shareInstance] fetchAllGroup];
     
-    [[AUUBaseRecordsCenter shareCenter] fetchAllDetails];
+    [[AUUTestRecordsCenter shareInstance] fetchAllDetails];
     
-    [[AUUBaseRecordsCenter shareCenter] cleanupDetails];
+    [[AUUTestRecordsCenter shareInstance] cleanupDetails];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self test];
