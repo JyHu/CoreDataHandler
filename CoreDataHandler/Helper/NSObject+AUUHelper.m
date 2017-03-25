@@ -15,7 +15,7 @@
 @implementation NSObject (AUUHelper)
 
 - (id)assignToEntity:(NSManagedObject *)entity managedObjectContext:(NSManagedObjectContext *)managedObjectContext
-                primaryKeyGenerateBlock:(AUUPrimeValueGenerateBlock)generateBlock
+primaryKeyGenerateBlock:(AUUPrimeValueGenerateBlock)generateBlock
 {
     unsigned int property_count = 0;
     
@@ -79,7 +79,9 @@
             // 拿到entity当前属性的数据类型
             objc_property_t entity_property_t = class_getProperty([entity class], [propertyAttributeName UTF8String]);
             NSString *entity_attribute_type = [self attributeTypeOfProperty_t:entity_property_t];
-            
+            if (!entity_attribute_type) {
+                continue;
+            }
             // 如果是数组类型或者集合类型，说明curValue是一个model数组或者集合，需要遍历所有的model数据，而对应的entity中的数据肯定是NSSet
             if ([NSClassFromString(entity_attribute_type) isSubclassOfClass:[NSSet class]])
             {
@@ -165,7 +167,7 @@
 
 /**
  从已有的entities中取出主键对应的数据，用于update
-
+ 
  @param objects 数据数组
  @param pkey 主键
  @param value 主键值
@@ -184,19 +186,25 @@
 
 /**
  根据property_t，取出数据类型
-
+ 
  @param property_t property_t
  @return 数据类型，如NSArray， B， I， NSSet 等
  */
 - (NSString *)attributeTypeOfProperty_t:(objc_property_t)property_t
 {
-    unsigned int outCount = 0;
-    objc_property_attribute_t *attribute_t =  property_copyAttributeList(property_t, &outCount);
-    NSString *attribute = [NSString stringWithUTF8String:attribute_t->value];
-    NSRange range = [attribute rangeOfString:@"\""];
-    return range.location != NSNotFound ?
-                        [attribute substringWithRange:NSMakeRange(range.location + range.length,
-                                                                  attribute.length - range.location - range.length - 1)] : attribute;
+    if (property_t) {
+        unsigned int outCount = 0;
+        objc_property_attribute_t *attribute_t =  property_copyAttributeList(property_t, &outCount);
+        NSString *attribute = [NSString stringWithUTF8String:attribute_t->value];
+        if (attribute_t && attribute) {
+            NSRange range = [attribute rangeOfString:@"\""];
+            return range.location != NSNotFound ?
+            [attribute substringWithRange:NSMakeRange(range.location + range.length,
+                                                      attribute.length - range.location - range.length - 1)] : attribute;
+        }
+    }
+    
+    return nil;
 }
 
 - (NSString *)generateUUIDString

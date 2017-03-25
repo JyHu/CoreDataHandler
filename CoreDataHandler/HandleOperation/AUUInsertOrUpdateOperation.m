@@ -123,12 +123,20 @@
              */
             if ([model primaryKey])
             {
-                id primeValue = self.primeValueGenerateBlock ? self.primeValueGenerateBlock([model primaryKey], oriObj) : [self generateUUIDString];
+                id primaryValue = [model valueForKey:[model primaryKey]];
                 
-                [oriObj setValue:primeValue forKey:[model primaryKey]];
-                
-                // 同步的设置到model中
-                [model setValue:primeValue forKey:[model primaryKey]];
+                if (primaryValue)
+                {
+                    [oriObj setValue:primaryValue forKey:[model primaryKey]];
+                }
+                else
+                {
+                    id primeValue = self.primeValueGenerateBlock ? self.primeValueGenerateBlock([model primaryKey], oriObj) : [self generateUUIDString];
+                    
+                    [oriObj setValue:primeValue forKey:[model primaryKey]];
+                    // 同步的设置到model中
+                    [model setValue:primeValue forKey:[model primaryKey]];
+                }
             }
         }
         
