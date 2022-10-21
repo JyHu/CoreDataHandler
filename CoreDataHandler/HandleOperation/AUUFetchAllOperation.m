@@ -71,8 +71,6 @@
         [self asyncBlockWithError:error];
     }
     
-
-    
     AUUDebugFinishWithInfo(@"查询实体类%@所有数据的线程结束", NSStringFromClass(self.entityClass));
 }
 

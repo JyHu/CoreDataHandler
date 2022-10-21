@@ -55,6 +55,10 @@
         
         self.fetchRequest = [[NSFetchRequest alloc] init];
         
+        if (self.predicate) {
+            [self.fetchRequest setPredicate:self.predicate];
+        }
+        
         [self.fetchRequest setEntity:entity];
         
         [self.fetchRequest setSortDescriptors:@[sortDescriptor]];

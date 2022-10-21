@@ -48,6 +48,7 @@
 - (void)fetchAllGroup
 {
     AUUFetchAllGroupOperation *operation = [[AUUFetchAllGroupOperation alloc] initWithSharedPSC:self.persistentStoreCoordinator];
+    operation.predicate = [NSPredicate predicateWithFormat:@"age > 10"];
     [operation fetchAllGroupsWithCompletion:^(NSArray *entities) {
         NSLog(@"%@", entities);
     }];

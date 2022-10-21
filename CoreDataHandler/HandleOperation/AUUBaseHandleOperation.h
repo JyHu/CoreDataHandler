@@ -28,6 +28,8 @@
 
 @property (weak, nonatomic) AUUBaseRecordsCenter *baseRecordsCenter;
 
+@property (retain, nonatomic) NSPredicate *predicate;
+
 /**
  *  @author JyHu, 16-03-10 23:03:05
  *
@@ -67,7 +69,6 @@
  *  @since 1.0
  */
 - (BOOL)initVariableWithEntityClass:(Class)cls sortedKey:(NSString *)key;
-
 
 /**
  在operation中做一些异步的操作，这个方法需要在子类中去实现，如果不需要在coredata操作的时候去做一些异步的操作的话，可以不实现这个方法
